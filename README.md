@@ -1,3 +1,24 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Introduction](#introduction)
+- [Example: Creating a plugin](#example-creating-a-plugin)
+  - [Step 1: Defining the Plugin Specification](#step-1-defining-the-plugin-specification)
+    - [Metadata section](#metadata-section)
+    - [Connection section](#connection-section)
+    - [Triggers section](#triggers-section)
+    - [Actions section](#actions-section)
+  - [Step 2: Codegenerating the Plugin Shell](#step-2-codegenerating-the-plugin-shell)
+  - [Step 3: Exploring Plugin Helpers](#step-3-exploring-plugin-helpers)
+    - [`info` command](#info-command)
+    - [`sample` command](#sample-command)
+    - [`test` command](#test-command)
+    - [`run` command](#run-command)
+  - [Step 4: Implementing an action](#step-4-implementing-an-action)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Introduction
 
 So you want to build a plugin with Komand?  You've come to the right place!
