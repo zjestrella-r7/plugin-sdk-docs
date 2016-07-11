@@ -10,7 +10,7 @@
     - [Triggers section](#triggers-section)
     - [Actions section](#actions-section)
   - [Step 2: Codegenerating the Plugin Shell](#step-2-codegenerating-the-plugin-shell)
-  - [Step 3: Exploring Plugin Helpers](#step-3-exploring-plugin-helpers)
+  - [Step 3: Exploring Plugin Commands](#step-3-exploring-plugin-commands)
     - [`info` command](#info-command)
     - [`sample` command](#sample-command)
     - [`test` command](#test-command)
@@ -340,9 +340,9 @@ setup.py
 The `make` task does two things: Creates a `<vendor>/<name>` container with the plugin code, and also a `<vendor>-<name>-<version>.tar.gz` package that can be uploaded via `komand plugin register` or via the plugins UI within the Komand interface.
 All of the plugins are built as Docker containers for easy packaging and running.  You can always type `make` during the process of writing your plugin to build the latest version of it.
 
-### Step 3: Exploring Plugin Helpers
+### Step 3: Exploring Plugin Commands 
 
-Now that your plugin shell has been built, Komand provides some nice helpers on using it.
+Now that your plugin shell has been built, let's play around with some of the Plugin commands 
 
 To see what flags your plugin supports, try running:
 
