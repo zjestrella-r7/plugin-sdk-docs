@@ -17,8 +17,8 @@
     - [`run` command](#run-command)
   - [Step 4: Implementing an action](#step-4-implementing-an-action)
   - [Step 5: Installing your plugin for use in Komand](#step-5-installing-your-plugin-for-use-in-komand)
-    - [Install package via Komand line](#install-package-via-komand-line)
-    - [Install package via UI](#install-package-via-ui)
+    - [Option #1: Install package via Komand line](#option-1-install-package-via-komand-line)
+    - [Option #2: Install package via UI](#option-2-install-package-via-ui)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -585,7 +585,7 @@ Tada! You should now see that the `output` field is populated with the data you 
 
 Once you've built your plugin and implement triggers/actions, you have 2 ways you can install into Komand.
 
-#### Install package via Komand line 
+#### Option #1: Install package via Komand line 
 
 Every time you run `make`, the plugin will build a package of itself: `<vendor>-<name>-<version>.tar.gz`.
 
@@ -601,7 +601,7 @@ INFO[0000] Plugin example import succeeded. You should now see this in the plugi
 INFO[0000] Building plugin image acmecorp/example:0.1.0 
 ```
 
-#### Install package via UI
+#### Option #2: Install package via UI
 
 You can also upload the `.tar.gz` package via the Komand UI in the `setttings/plugins` section. Look for the `Import a Plugin` button.
 
