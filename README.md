@@ -1,6 +1,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Introduction](#introduction)
 - [Example: Creating a plugin](#example-creating-a-plugin)
   - [Step 1: Defining the Plugin Specification](#step-1-defining-the-plugin-specification)
@@ -15,6 +16,9 @@
     - [`test` command](#test-command)
     - [`run` command](#run-command)
   - [Step 4: Implementing an action](#step-4-implementing-an-action)
+  - [Step 5: Installing your plugin for use in Komand](#step-5-installing-your-plugin-for-use-in-komand)
+    - [Install package via Komand line](#install-package-via-komand-line)
+    - [Install package via UI](#install-package-via-ui)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -576,4 +580,29 @@ $ docker run -i --rm  acmecorp/example --debug test  < action-msg.json | jq .
 ```
 
 Tada! You should now see that the `output` field is populated with the data you returned.
+
+### Step 5: Installing your plugin for use in Komand
+
+Once you've built your plugin and implement triggers/actions, you have 2 ways you can install into Komand.
+
+#### Install package via Komand line 
+
+Every time you run `make`, the plugin will build a package of itself: `<vendor>-<name>-<version>.tar.gz`.
+
+You can install this using the `komand plugin register <packagename.tar.gz>` tool: 
+
+```bash 
+$ sudo -u komand komand plugin register acmecorp-example-0.1.0.tar.gz
+Loading plugin from path: /tmp/example/acmecorp-example-0.1.0.tar.gz
+INFO[0000] CREATING plugin                               name=example version=0.1.0
+INFO[0000] UPDATING_ACTIONS                              ID=14 name=example numActions=1 version=0.1.0
+INFO[0000] UPDATING_TRIGGERS                             ID=14 name=example numTriggers=1 version=0.1.0
+INFO[0000] Plugin example import succeeded. You should now see this in the plugin library or when you run `komand plugin list`. 
+INFO[0000] Building plugin image acmecorp/example:0.1.0 
+```
+
+#### Install package via UI
+
+You can also upload the `.tar.gz` package via the Komand UI in the `setttings/plugins` section. Look for the `Import a Plugin` button.
+
 
