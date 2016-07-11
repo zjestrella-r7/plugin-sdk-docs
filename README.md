@@ -103,6 +103,8 @@ The type must be selected from one of the valid types below:
 | file    | File object with filename (string) and content bytes| 
 
 
+You can also specify a collection (array) type by doing `[]<base type>` wrapped in strings, e.g.: `type: "[]string"`.  You must wrap it in quotes.
+
 #### Triggers section
 
 A plugin can define 0 or more triggers.  Simply create a section `triggers` and add a map 
