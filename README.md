@@ -6,6 +6,7 @@
 - [Example: Creating a plugin](#example-creating-a-plugin)
   - [Step 1: Defining the Plugin Specification](#step-1-defining-the-plugin-specification)
     - [Metadata section](#metadata-section)
+    - [Types section](#types-section)
     - [Connection section](#connection-section)
     - [Triggers section](#triggers-section)
     - [Actions section](#actions-section)
@@ -110,7 +111,7 @@ At the top of the spec, you define metadata about your plugin such as the name, 
 #### Types section
 
 The types section defines any custom complex type objects you have defined.  It is in the format of the map which has the `type name` identifier as the key, and then an object definition
-that describles 
+that describes the property for the object.  You can use these types later in your plugin specification as types for your input/output parameters, or within your connection definition. 
 
 ```yaml
 types:
