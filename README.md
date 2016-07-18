@@ -49,6 +49,13 @@ vendor: acmecorp
 tags: ["example"]
 icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAjCAYAAADWtVmPAAAABGdBTUEAALGPC/xhBQAAA6hJREFUWAnVWEloFEEUnclCFE0MBqJGjYiBiHpQRMUFJbgFxQV0Bg/xogc3cEPcEBVB8aBeFIQIogdRQXPQXBRJhKighxAIeBARFxT3lWjiNr7X/go/nV5mOjPJ9IdH/V+/6td/VdXV1R1NJBLtkUikAAizxHPCnL3OnUTadEVI9Q4SmQ60hpRAAnkfB+qt/PGc9AdqgTDJeyS7uHMBYIwzBvRVwFcg26UJCY5QeQ+NoOITsFZVVsBuBrJR/iKpI0Au80U5GLgGxGi0A5QLQKE0KIB+ipVZJG+QywI14TNhP5f8uhBh3SNgomq8AvZnOvpYGjD+MJnkKPQ9wC+VUzci9HGFNikyo2E/oKMP5A/GPAhY7zuUpcANwC6OREyjK1CKZRbyoZ8wjl4qX2GcKjWhVbBZ5ySeRNjhCTBVBVsC+wMdGRbOeqlMYg50rgpXx018ibDjT2A7EJXAI6HfBTIhvxF0L2DGKoPeCPhJUkRMkOtQSoRMHvSjAI/DdMkLBJqlVn8h7LdJBk+JCGPaB6tOYTCvnOrh7MkkpUyEyTgt/22vLD183LY7ALOVyqEH2baBiJi8bkIxD2Qu9EOA1wNp+pnyKZRpaisthR30IOkRESbE49AiI8/OXNiv6fCROvito136rfNp7+fuERE+6BvMjJoSdUOAWy4jd6B+s2lrStQVAk0ufZKpDkyEW2iNSmQr7EagjHUoefbvA/g8GXkMZbLqE4PdClRInwHQG4AgEogIk6tRCe1SI/O4rFa+2bBfApeBIkm4H/TTgBH6x4qP30VOVxDT1q1MmQgvajGV6AGHyNxyfMfkSXIDVftK1Lc49OHNdoK0582b76xUJCUi3N/LVFL8LvCSe3CWq/Y1sL95dHgH3yQhkw/9qkdbuytpIj/Qc5FKKtkL5Ef0iwNn7SO72Gw/Rcjw9nDRpZ29Oikibeg1T4LzWyDTH1xfMMYMGY+HxjnAT3yJcCvMUUHP+EVMk1+Py8mr9YnrSUTPDN/c532Cpdv9HQHnq51w0mMAVyL2vXrJI0gmXfxa7fzlA/2Yy2CORHh6WN/tKHl61Ll07q1qnpbLuTIU6IcdBu5GhPek8dKB5zmv19kgfH/FLSb/yey3JdWFCN+wlUIi6BvWFj+tJm8UqxWZnSp6J5FnqBwjJHjnaVSNsknlHU//TNwiyVlEHsIYJSSKoN8RZ7YWvAJtVCuzHvZKPjzDhUQx9PtAWGSbIjPI0pF5CdAcFgYqz92GzD8I1+y51g74CAAAAABJRU5ErkJggg==" 
 
+types:
+  person:
+     first_name: 
+       type: string
+     last_name: 
+       type: string
+     
 connection:
   hostname: 
     type: string
@@ -71,7 +78,8 @@ triggers:
         description: "How frequently (in seconds) to trigger a greeting"
         default: 15
     output:
-      greeting: string 
+      greeting: 
+        type: person 
 
 actions:
   say_goodbye:
@@ -98,6 +106,50 @@ At the top of the spec, you define metadata about your plugin such as the name, 
 
   * `tags`: Tags are optional tags that describe your plugin's functionality.
 
+
+#### Types section
+
+The types section defines any custom complex type objects you have defined.  It is in the format of the map which has the `type name` identifier as the key, and then an object definition
+that describles 
+
+```yaml
+types:
+  <type name>:
+     <parameter #1 identifier>:
+        type: <choose from a valid type>
+        name: <optional: descriptive name for the UI>
+        description: <optional: string description>
+        default: <optional:  default>
+        required: <optional: true or false, default is false. Set to true if required>
+     <parameter #2 identifier>:
+        type: <choose from a valid type>
+        name: <optional: descriptive name for the UI>
+        description: <optional: string description>
+        default: <optional:  default>
+        required: <optional: true or false, default is false. Set to true if required>
+     ...
+
+```
+
+In the example above, we defifne a custom type called `person` that has two properties: `first_name` and `last_name`.
+
+The type must be selected from one of the valid types below:
+
+| Type    | Description            | 
+| --------| -----------------------|
+| integer | integer is an integer  | 
+| string  | string value           | 
+| date    | date string value (In RFC 3339 format) per the JSON schema   |
+| bytes   | bytes are base64 encoded byte strings |
+| object  | Generic JSON object    |
+| file    | File object with filename (string) and content bytes| 
+
+
+You can also specify a collection (array) type by doing `[]<base type>` wrapped in strings, e.g.: `type: "[]string"`.  You must wrap it in quotes.
+
+These types will now be available in the `connection` sections, `trigger` input/output, and `action` input/output sections to use in addition to the base types.
+
+
 #### Connection section
 
 The connection section defines the configuration variables you need for a connection. If your plugin does not require a connection, you can remove this section.
@@ -114,20 +166,6 @@ In connection, each variable is defined in a map with its identifier.  The ident
    default: <optional:  default>
    required: <optional: true or false, default is false. Set to true if reequired>
 ```
-
-The type must be selected from one of the valid types below:
-
-| Type    | Description            | 
-| --------| -----------------------|
-| integer | integer is an integer  | 
-| string  | string value           | 
-| date    | date string value      |
-| bytes   | bytes are byte strings |
-| object  | Generic JSON object    |
-| file    | File object with filename (string) and content bytes| 
-
-
-You can also specify a collection (array) type by doing `[]<base type>` wrapped in strings, e.g.: `type: "[]string"`.  You must wrap it in quotes.
 
 #### Triggers section
 
