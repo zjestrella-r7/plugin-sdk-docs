@@ -31,7 +31,6 @@ Plugins in Komand can be built currently using Python or Go.
 
 Plugins support any number of `triggers` or `actions`.  Plugins are defined using a `plugin.spec.yaml`, and a plugin shell can be codegen'd using `komand plugin generate [python|go] <path/to/plugin.spec.yaml>`. 
 
-
 ## Example: Creating a plugin
 
 ### Step 1: Defining the Plugin Specification
@@ -118,16 +117,16 @@ types:
   <type name>:
      <parameter #1 identifier>:
         type: <choose from a valid type>
-        name: <optional: descriptive name for the UI>
-        description: <optional: string description>
-        default: <optional:  default>
-        required: <optional: true or false, default is false. Set to true if required>
+        name: <optional, descriptive name for the UI>
+        description: <optional, string description>
+        default: <optional,  default>
+        required: <optional, true or false, default is false. Set to true if required>
      <parameter #2 identifier>:
         type: <choose from a valid type>
-        name: <optional: descriptive name for the UI>
-        description: <optional: string description>
-        default: <optional:  default>
-        required: <optional: true or false, default is false. Set to true if required>
+        name: <optional, descriptive name for the UI>
+        description: <optional, string description>
+        default: <optional,  default>
+        required: <optional, true or false, default is false. Set to true if required>
      ...
 
 ```
@@ -162,10 +161,10 @@ In connection, each variable is defined in a map with its identifier.  The ident
 ```yaml
 <identifier>:
    type: <choose from a valid type>
-   name: <optional: descriptive name for the UI>
-   description: <optional: string description>
-   default: <optional:  default>
-   required: <optional: true or false, default is false. Set to true if reequired>
+   name: <optional, descriptive name for the UI>
+   description: <optional, string description>
+   default: <optional,  default>
+   required: <optional, true or false, default is false. Set to true if required to set a value>
 ```
 
 #### Triggers section
@@ -176,8 +175,8 @@ A plugin can define 0 or more triggers.  Simply create a section `triggers` and 
 ```yaml
 triggers:
   <unique trigger identifier>:
-     title: <optional: descriptive name for the UI>
-     description: <optional: string description>
+     title: <optional, descriptive name for the UI>
+     description: <optional, string description>
      input: <optional, map of identifier -> variable inputs> 
      output: <map of identifier -> variable outputs>
 ```
@@ -190,15 +189,15 @@ A plugin can define 0 or more actions.  Simply create a section `actions` and ad
 ```yaml
 actions:
   <unique action identifier>:
-     title: <optional: descriptive name for the UI>
-     description: <optional: string description>
+     title: <optional, descriptive name for the UI>
+     description: <optional, string description>
      input: <optional, map of identifier -> variable inputs> 
      output: <map of identifier -> variable outputs>
 ```
 
 ### Step 2: Codegenerating the Plugin Shell
 
-Now that you have a valid plugin spec file, you can codegenerate a plugin shell.  You need to have the `komand plugin` tool installed.
+Now that you have a valid plugin spec file, you can codegenerate a plugin shell.  You need to have the `komand plugin` tool installed which is installed with Komand along with other tools in (/opt/komand/).
 
 Run it as follows:  `komand plugin generate python plugin.spec.yaml`.  You may change `plugin.spec.yaml` to the path of your plugin spec. By default, it will generate the plugin a folder with the same `name` as you defined in your plugin spec yaml. You can also use the `--path`  flag to specify a custom path to generate your plugin inside of.
 
@@ -381,7 +380,7 @@ All of the plugins are built as Docker containers for easy packaging and running
 
 ### Step 3: Exploring Plugin Commands 
 
-Now that your plugin shell has been built, let's play around with some of the Plugin commands 
+Now that your plugin shell has been built, let's play around with some of the Plugin commands that come code generated with the plugin shell.
 
 To see what flags your plugin supports, try running:
 
@@ -428,7 +427,7 @@ Actions (1):
 
 #### `sample` command
 
-All of the plugin `test` or `run` commands require a JSON message on `stdin` that provides the JSON
+The Komand system communicates with all of its plugins using JSON.  All of the plugin `test` or `run` commands require a JSON message on `stdin` that provides the JSON
 input parameters and connection information.  The plugin can generate a `sample` of this message for you!
 
 The sample command takes the `identifier` of your trigger or action as an argument, and generates a sample message 
@@ -469,11 +468,11 @@ To save the output to a file, simply pipe the JSON to `stdout`:
 $ docker run -i --rm  acmecorp/example sample say_goodbye | jq "." > action-msg.json
 ```
 
-You will now have a sample message in `action-msg.json` you can use to test the plugin.
+You will now have a sample message in `action-msg.json` you can use to test the plugin.  Fill out any `input` or `connection` values to use this sample message.
 
 #### `test` command 
 
-The `test` command is used for testing your plugin. You can implement a `test()` method in your action 
+The `test` command is used for testing your plugin. You can implement an optional `test()` method in your action 
 or trigger which will be used by the UI for testing connectivity.
 
 ```bash
@@ -488,7 +487,7 @@ The `run` command is used for running your plugin. When developing, please make 
 plugin with the `--debug` flag so that all output is displayed to `stdin/stdout`
 
 ```bash
-docker run -i --rm  acmecorp/example --debug run < action-msg.json    
+docker run -i --rm  acmecorp/example --debug run < action-msg.json
 ```
 
 We'll show an example of implementing an action `run` command below.
@@ -639,6 +638,9 @@ INFO[0000] UPDATING_TRIGGERS                             ID=14 name=example numT
 INFO[0000] Plugin example import succeeded. You should now see this in the plugin library or when you run `komand plugin list`. 
 INFO[0000] Building plugin image acmecorp/example:0.1.0 
 ```
+
+Re running this will overwrite the old plugin, so you can do it multiple times as you are developing.
+
 
 #### Option #2: Install package via UI
 
