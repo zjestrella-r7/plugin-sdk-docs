@@ -137,6 +137,7 @@ The type must be selected from one of the valid types below:
 
 | Type    | Description            | 
 | --------| -----------------------|
+| boolean | true or false          | 
 | integer | integer is an integer  | 
 | string  | string value           | 
 | date    | date string value (In RFC 3339 format) per the JSON schema   |
