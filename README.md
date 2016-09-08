@@ -131,7 +131,7 @@ types:
 
 ```
 
-In the example above, we defifne a custom type called `person` that has two properties: `first_name` and `last_name`.
+In the example above, we define a custom type called `person` that has two properties: `first_name` and `last_name`.
 
 The type must be selected from one of the valid types below:
 
