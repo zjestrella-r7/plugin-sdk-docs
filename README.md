@@ -660,9 +660,14 @@ The following sections document things you need to know to develop quality plugi
 
 Variables
 
+![Output Variables](imgs/output_var.png)
+
 #### Logging
 
 Log informational messages including warnings and errors, they're displayed to the user in the Log section of the Job Output.
+
+![Log Output](imgs/log_var.png)
+
 Informational logging can be done by raising an exception or logging directly, a few examples are below. 
 ```
 # Python
@@ -684,6 +689,7 @@ raise Exception('connecting')
 
 #### Tests
 
+log_var.png     output_var.png
 The test method is used to provide tests of the plugin by returning JSON. It should be completed with practical test(s) of plugin functionality.
 Raising an exception will cause the test method to fail.
 ```
@@ -694,6 +700,10 @@ def test(self, params={}):
 ```
 
 Tests are executed in the Komand WUI after configuring a plugin. A log of the JSON output is also viewable.
+
+![Testing Interface](imgs/test.png)
+
+![Testing Log](imgs/test_log.png)
 
 The user parameters are available in the method as well.
 
