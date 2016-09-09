@@ -24,7 +24,7 @@ another plugin that depends on the output variable as input in the workflow will
 proceed with it but rather the workflow stops there.
 
 Example of returning all variables, irrespective of them having a meaningful value:
-...
+```
 variables = {
   'Host': ip,
   'Name': 'N/A', # Not available is used to illustrate non-meaningful
@@ -34,7 +34,7 @@ return variables
 ```
 
 Example of returning only meaningful variables:
-...
+```
 if ip is not '':
   variables['Host'] = ip
 if fullname is not '':
@@ -43,8 +43,8 @@ if fullname is not '':
 return variables
 ```
 
-Example of output variables displayed in web interface
-![Output Variables](imgs/output_var.png)
+In other words, don't do this:
+![All Variables](imgs/var_all.png)
 
 #### Parameters
 
