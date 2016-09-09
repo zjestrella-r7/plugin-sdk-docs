@@ -678,6 +678,11 @@ raise Exception('connecting')
 
 Note that the raising of exceptions will cause the plugin to fail.
 
+### Cache
+
+Plugins can use persistent storage for caching files using the `enable_cache: true` in the plugin spec file.
+`/var/cache` can then be used for storage across all the plugin's containers.
+
 ### Plugin Status
 
 Plugin failures are caused by raising exceptions. Do this when something doesn't go right and the next best option is to fail.
