@@ -2,7 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Writing your Python Plugin](#writing-your-plugin)
-  - [Variables](#variables)
+  - [Required Variables](#required-variables)
   - [Parameters](#parameters)
   - [Logging](#logging)
   - [Cache](#cache)
