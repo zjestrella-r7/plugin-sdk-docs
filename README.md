@@ -20,6 +20,10 @@
   - [Step 5: Installing your plugin for use in Komand](#step-5-installing-your-plugin-for-use-in-komand)
     - [Option #1: Install package via Komand line](#option-1-install-package-via-komand-line)
     - [Option #2: Install package via UI](#option-2-install-package-via-ui)
+  - [Step 6: Writing your Plugin](#step-6-writing-your-plugin)
+    - [Variables](#variables)
+    - [Logging](#logging)
+    - [Tests](#test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -648,3 +652,51 @@ Re running this will overwrite the old plugin, so you can do it multiple times a
 You can also upload the `.tar.gz` package via the Komand UI in the `setttings/plugins` section. Look for the `Import a Plugin` button.
 
 
+### Step 6: Writing your Plugin
+
+The following sections document things you need to know to develop quality plugins.
+
+#### Variables
+
+Variables
+
+#### Logging
+
+Log informational messages including warnings and errors, they're displayed to the user in the Log section of the Job Output.
+Informational logging can be done by raising an exception or logging directly, a few examples are below. 
+```
+# Python
+logging.info("connecting")
+raise ValueError('connecting')
+raise Exception('connecting')
+```
+
+Note that the raising of exceptions will cause the plugin to fail.
+
+### Plugin Status
+
+Plugin failures are caused by raising exceptions. Do this when something doesn't go right and the next best option is to fail.
+```
+# Python
+raise ValueError('connecting')
+raise Exception('connecting')
+```
+
+#### Tests
+
+The test method is used to provide tests of the plugin by returning JSON. It should be completed with practical test(s) of plugin functionality.
+Raising an exception will cause the test method to fail.
+```
+# Python
+def test(self, params={}):
+  """TODO: Test action"""
+  return {}
+```
+
+Tests are executed in the Komand WUI after configuring a plugin. A log of the JSON output is also viewable.
+
+The user parameters are available in the method as well.
+
+Testing Examples:
+* Successful connections to API or service
+* Validating known output of command
