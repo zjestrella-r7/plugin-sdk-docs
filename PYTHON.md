@@ -78,6 +78,22 @@ Note that the raising of exceptions will cause the plugin to fail.
 Plugins can use persistent storage for caching files using the `enable_cache: true` in the plugin spec file.
 `/var/cache` can then be used for storage across all the plugin's containers but not in containers of other plugins.
 
+Example
+```
+import os
+...
+cache_dir  = '/var/cache'
+cache_file = cache_dir + '/' + 'mycache'
+
+if os.path.isdir(cache_dir):
+  if os.path.isfile(cache_file):
+    f = open(cache_file, 'rw')
+    contents = f.read()
+    # Do comparison
+  else:
+    # Create cachefile for next time
+```
+
 ### Plugin Status
 
 Plugin failures are caused by raising exceptions. Do this when something doesn't go right and the next best option is to fail.
