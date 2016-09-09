@@ -662,6 +662,16 @@ Variables
 
 ![Output Variables](imgs/output_var.png)
 
+#### Parameters
+
+Input variables defined in the spec file are available in a dictionary called `params` where the value can be accessed by the variable/key name.
+We can do this the long way or in shorter form:
+```
+# Python
+self.input.parameters['var']
+params['var']
+```
+
 #### Logging
 
 Log informational messages including warnings and errors, they're displayed to the user in the Log section of the Job Output.
