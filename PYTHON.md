@@ -9,6 +9,7 @@
   - [Plugin Status](#plugin-status)
   - [Tests](#test)
   - [Methods](#methods)
+  - [Verifying](#verifying)
 
 ## Writing your Plugin
 
@@ -196,3 +197,27 @@ def run(self, params={}):
 ```
 
 Once you define the function you can call it in the same python file by referring to itself e.g. `self.get_value(...)`
+
+### Verifying
+
+Before committing the plugin, always verify that the functionality works to the top of the stack. Plugins should be user
+friendly and the best way to test and figure out if your plugin meets those requirements is to get it working in Komand
+product. All developers should do this.
+
+![Import Plugin](imgs/import_plugin.png)
+
+1. Open up the web interface `https://127.0.0.1:3000` for the Vagrant config
+2. Authenticate
+3. `Settings -> Import A Plugin`
+4. Choose the tarball that the `makefile` generated
+5. Create a Workflow to use it, it's easiest to use the API Trigger to kick it off.
+![Workflow](imgs/api_trigger.png)
+![Workflow](imgs/curl.png)
+6. Publish the workflow
+7. Start the workflow by executing the CURL command with the necessary inputs
+```
+curl -X POST -d '{"blah": "things", "blah2": "morethings"}' http://komand.dev.komand.local:8000/v2/workflows/46/events?api_key=b943197b-7d3f-4c77-b704-c2e4c55c6c
+```
+8. Check the closed jobs for the results
+
+Make sure everything makes sense especially the text used to described the plugin, its input, and outputs.
