@@ -24,12 +24,12 @@ another plugin that depends on the output variable as input in the workflow will
 proceed with it but rather the workflow stops there.
 
 Example of returning all variables, irrespective of them having a meaningful value:
-...
+```
 # Go
 ```
 
 Example of returning only meaningful variables:
-...
+```
 # Go
 ```
 
@@ -60,7 +60,7 @@ Note that the raising of exceptions will cause the plugin to fail.
 ### Cache
 
 Plugins can use persistent storage for caching files using the `enable_cache: true` in the plugin spec file.
-`/var/cache` can then be used for storage across all the plugin's containers but not in containers of other plugins.
+`/var/cache` can then be used for storage across all the plugin's ```tainers but not in containers of other plugins.
 
 ### Plugin Status
 
