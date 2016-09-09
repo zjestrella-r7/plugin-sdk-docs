@@ -704,9 +704,9 @@ raise Exception('connecting')
 
 #### Tests
 
-log_var.png     output_var.png
 The test method is used to provide tests of the plugin by returning JSON. It should be completed with practical test(s) of plugin functionality.
 Raising an exception will cause the test method to fail.
+
 ```
 # Python
 def test(self, params={}):
