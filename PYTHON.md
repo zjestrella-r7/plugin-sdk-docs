@@ -9,11 +9,11 @@
   - [Plugin Status](#plugin-status)
   - [Tests](#test)
 
-### Writing your Plugin
+## Writing your Plugin
 
 The following sections document things you need to know to develop quality plugins.
 
-#### Required Variables
+### Required Variables
 
 Output variables which are defined as `required: false`, the default, don't have to be returned as JSON from the plugin.
 They can be omitted and in some cases it's better to omit them. For example, the finger plugin tries to grab many
@@ -46,7 +46,7 @@ return variables
 In other words, don't do this:
 ![All Variables](imgs/var_all.png)
 
-#### Parameters
+### Parameters
 
 Input variables defined in the spec file are available in a dictionary called `params` where the value can be accessed by the variable/key name.
 We can do this the long way or in shorter form:
@@ -56,7 +56,7 @@ self.input.parameters['var']
 params['var']
 ```
 
-#### Logging
+### Logging
 
 Log informational messages including warnings and errors, they're displayed to the user in the Log section of the Job Output.
 
@@ -86,7 +86,7 @@ raise ValueError('connecting')
 raise Exception('connecting')
 ```
 
-#### Tests
+### Tests
 
 The test method is used to provide tests of the plugin by returning JSON. It should be completed with practical test(s) of plugin functionality.
 Raising an exception will cause the test method to fail.
