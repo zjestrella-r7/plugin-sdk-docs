@@ -13,10 +13,37 @@
 
 The following sections document things you need to know to develop quality plugins.
 
-#### Variables
+#### Required Variables
 
-Variables
+Output variables which are defined as `required: false`, the default, don't have to be returned as JSON from the plugin.
+They can be omitted and in some cases it's better to omit them. For example, the finger plugin tries to grab many
+attributes of a user from the finger daemon such as the real name, shell, home directory, etc.. There's no guarantee that
+all the attributes will have values, and in some cases, the absence of values doesn't mean our plugin failed. When this
+is true, we can omit returning the key/value pairs instead of setting them to empty. This is a better practice because
+another plugin that depends on the output variable as input in the workflow will not get an empty value and try to
+proceed with it but rather the workflow stops there.
 
+Example of returning all variables, irrespective of them having a meaningful value:
+...
+variables = {
+  'Host': ip,
+  'Name': 'N/A', # Not available is used to illustrate non-meaningful
+}
+
+return variables
+```
+
+Example of returning only meaningful variables:
+...
+if ip is not '':
+  variables['Host'] = ip
+if fullname is not '':
+  variables['Name'] = fullname
+
+return variables
+```
+
+Example of output variables displayed in web interface
 ![Output Variables](imgs/output_var.png)
 
 #### Parameters
@@ -82,7 +109,6 @@ The user parameters are available in the method as well.
 Testing Examples:
 * Successful connections to API or service
 * Validating known output of command
-
 
 Example for testing the `hashit` plugin that generates hashes of a string. We test against known hashes of a string.
 ```
