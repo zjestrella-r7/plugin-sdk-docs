@@ -8,6 +8,7 @@
   - [Cache](#cache)
   - [Plugin Status](#plugin-status)
   - [Tests](#test)
+  - [Methods](#methods)
 
 ## Writing your Plugin
 
@@ -110,7 +111,9 @@ Testing Examples:
 * Successful connections to API or service
 * Validating known output of command
 
-Example for testing the `hashit` plugin that generates hashes of a string. We test against known hashes of a string.
+Example for testing the `hashit` plugin that generates hashes of a string. We can test that hashing works by comparing
+known hashes of a string against the code the hashit plugin uses to generate them. An exeception is raised if the hashes
+do not match, otherwise upon success we return the JSON object of hashes.
 ```
 def test(self, params={}):
         a = 'test'
@@ -135,3 +138,45 @@ def test(self, params={}):
 
         return test_hashes
 ```
+
+### Methods
+
+Use good programming practices such as breaking the program into smaller functions or methods. This makes the plugins more readable and manageable.
+
+An example below is provided that we can use instead of doing a bunch of `re.search`es and conditionals to test the existence of a value.
+The regex in the `get_value` method extracts the value from the `\nkey: value` pair match in the stdout string.
+
+```
+...
+def get_value(self, key, stdout):
+    '''Extracts value from key: value pair'''
+    # Example: regex = "\nDomain Name: (google.com)\n"
+    regex = r"\n" + re.escape(key) + r": (.*)\n" 
+    r = re.search(regex, stdout)
+    # Only return the value in the group 1 if it exists
+    if hasattr(r, 'group'):
+      if r.lastindex == 1:
+        return r.group(1)
+...
+
+def run(self, params={}):
+# Initialize list with keys for matching
+  keys = [
+    'Domain Name',
+    'Registrar WHOIS Server',
+    'Updated Date',
+    'Creation Date',
+    'Registrar',
+    'Registrar Abuse Contact Email',
+    'Registrar Abuse Contact Phone',
+    'Registrant Country',
+  ]
+
+  for key in keys:
+    # Iterate over keys and store the extracted values into results 
+    results[key] = self.get_value(key, stdout)
+  
+  return results
+```
+
+Once you define the function you can call it in the same python file by referring to itself e.g. `self.get_value(...)`

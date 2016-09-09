@@ -8,6 +8,7 @@
   - [Cache](#cache)
   - [Plugin Status](#plugin-status)
   - [Tests](#test)
+  - [Methods](#methods)
 
 ## Writing your Plugin
 
@@ -94,3 +95,14 @@ Example for testing the `hashit` plugin that generates hashes of a string. We te
 ```
 # Go
 ```
+
+### Methods
+
+Use good programming practices such as breaking the program into smaller functions or methods. This makes the plugins more readable and manageable.
+
+An example below is provided that we can use 
+```
+# GO
+```
+
+Once you define the function you can call it in the same python file by referring to itself e.g. `self.get_value(...)`
