@@ -75,7 +75,7 @@ Note that the raising of exceptions will cause the plugin to fail.
 ### Cache
 
 Plugins can use persistent storage for caching files using the `enable_cache: true` in the plugin spec file.
-`/var/cache` can then be used for storage across all the plugin's containers.
+`/var/cache` can then be used for storage across all the plugin's containers but not in containers of other plugins.
 
 ### Plugin Status
 
