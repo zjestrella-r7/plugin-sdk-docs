@@ -50,12 +50,22 @@ In other words, don't do this:
 
 ### Parameters
 
-Input variables defined in the spec file are available in a dictionary called `params` where the value can be accessed by the variable/key name.
+Input variables defined in the spec file are available in a dictionary called `params` where the value can be accessed
+by the variable/key name, these are our input variables names described in the `plugin.spec.yaml` file.
 We can do this the long way or in shorter form:
 ```
 # Python
 self.input.parameters['var']
 params['var']
+```
+
+We can also use the better `params.get()` method which
+
+* Allows optional default value if the key is missing 
+* Returns `None` if the key is missing whereas `params['var'] would raise `KeyError`.
+
+```
+value = params.get('var', 'blah')
 ```
 
 ### Logging
