@@ -143,13 +143,24 @@ The type must be selected from one of the valid types below:
 | date    | date string value (In RFC 3339 format) per the JSON schema   |
 | bytes   | bytes are base64 encoded byte strings |
 | object  | Generic JSON object    |
-| file    | File object with filename (string) and content bytes| 
+| file    | File object with filename (string) and base64 content bytes| 
 
 
 You can also specify a collection (array) type by doing `[]<base type>` wrapped in strings, e.g.: `type: "[]string"`.  You must wrap it in quotes.
 
 These types will now be available in the `connection` sections, `trigger` input/output, and `action` input/output sections to use in addition to the base types.
 
+Enums can be used to declare the possible options for an input field
+```
+input:
+      subtype:
+        type: string
+        description: "Optional subtype filter"
+        enum:
+          - none
+          - bot_message
+          - me_message
+```
 
 #### Connection section
 
