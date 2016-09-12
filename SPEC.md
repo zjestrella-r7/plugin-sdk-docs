@@ -150,17 +150,34 @@ You can also specify a collection (array) type by doing `[]<base type>` wrapped 
 
 These types will now be available in the `connection` sections, `trigger` input/output, and `action` input/output sections to use in addition to the base types.
 
-Enums can be used to declare the possible options for an input field
+Enums can be used to limit and declare the possible options for an input field. 
 ```
-input:
-      subtype:
-        type: string
-        description: "Optional subtype filter"
+actions:
+  forward:
+    name: "Forward Lookup"
+    description: "Forward DNS Query"
+    input:
+      domain:
+        type: "string"
+        description: "Domain name to resolve"
+        required: true
+      query:
+        type: "string"
+        description: "Optional query type e.g. ANY, A, MX, NS, etc."
         enum:
-          - none
-          - bot_message
-          - me_message
+        - "A"
+        - "AAAA"
+        - "ANY"
+        - "CNAME"
+        - "MX"
+        - "NS"
+        - "PTR"
+        - "SOA"
 ```
+
+The enumerated types are selectable from a drop-down box in the WUI.
+
+![Enum](imgs/enum.png)
 
 #### Connection section
 
