@@ -141,7 +141,7 @@ The type must be selected from one of the valid types below:
 | Type    | Description            | 
 | --------| -----------------------|
 | boolean | true or false          | 
-| integer | integer is an integer  | 
+| integer | integer is a signed integer  | 
 | string  | string value           | 
 | date    | date string value (In RFC 3339 format) per the JSON schema   |
 | bytes   | bytes are base64 encoded byte strings |
