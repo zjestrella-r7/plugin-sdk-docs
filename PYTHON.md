@@ -86,8 +86,8 @@ Note that the raising of exceptions will cause the plugin to fail.
 
 ### Cache
 
-Plugins can use persistent storage for caching files using the `enable_cache: true` in the plugin spec file.
-`/var/cache` can then be used for storage across all the plugin's containers but not in containers of other plugins.
+Plugins can use persistent storage for caching files using the `enable_cache: true` in the metadata section of plugin spec file.
+`/var/cache` can then be used for storage across all the plugin's containers but not in containers of other plugins. For plugins that download down files from the internet, it makes it easy to check if the file already exists in the cache.
 
 Example
 ```
