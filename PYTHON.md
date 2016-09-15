@@ -84,6 +84,35 @@ raise Exception('connecting')
 
 Note that the raising of exceptions will cause the plugin to fail.
 
+### Errors and Exceptions
+
+Raising exceptions is how we cause plugins to abort. We want them to abort when something goes wrong so the workflow
+doesn't continue.
+
+We can manually raise exceptions:
+```
+# Python
+raise ValueError('connecting')
+raise Exception('connecting')
+```
+
+For error handling, we should handle exceptions from the methods and functions in python libraries.
+We then log a detailed message, and raise an exception to abort.
+
+Example for handling errors from a URL request:
+```
+try:
+  resp = urllib2.urlopen(url)
+  # Return from function if successful
+  return resp
+except urllib2.HTTPError, e:
+  logging.error('HTTPError: %s for %s', str(e.code), url)
+except urllib2.URLError, e:
+  logging.error('URLError: %s for %s', str(e.reason), url)
+# After catching and logging errors, manually raise an exception to abort
+raise Exception('URL Request Failed')
+```
+
 ### Cache
 
 Plugins can use persistent storage for caching files using the `enable_cache: true` in the metadata section of plugin spec file.
