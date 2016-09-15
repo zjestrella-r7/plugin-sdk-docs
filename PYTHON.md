@@ -5,6 +5,7 @@
   - [Required Variables](#required-variables)
   - [Parameters](#parameters)
   - [Logging](#logging)
+  - [Errors](#errors-and-exceptions)
   - [Cache](#cache)
   - [Plugin Status](#plugin-status)
   - [Tests](#test)
