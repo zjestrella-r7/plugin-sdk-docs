@@ -50,6 +50,10 @@ return variables
 In other words, don't do this:
 ![All Variables](imgs/var_all.png)
 
+We have a helper function called `clean_dict` that will automatically remove keys with `None` type values and empty
+strings. It can be called like `clean_dictionary = komand.helper.clean_dict(unclean_dictionary)`, more information in
+the [Helper Library](#helper-library)
+
 ### Parameters
 
 Input variables defined in the spec file are available in a dictionary called `params` where the value can be accessed
@@ -63,7 +67,7 @@ params['var']
 
 We can also use the better `params.get()` method which
 
-* Allows optional default value if the key is missing 
+* Allows optional default value if the key is missing
 * Returns `None` if the key is missing whereas `params['var'] would raise `KeyError`.
 
 ```
@@ -76,7 +80,7 @@ Log informational messages including warnings and errors, they're displayed to t
 
 ![Log Output](imgs/log_var.png)
 
-Informational logging can be done by raising an exception or logging directly, a few examples are below. 
+Informational logging can be done by raising an exception or logging directly, a few examples are below.
 ```
 # Python
 logging.info("connecting")
@@ -136,8 +140,9 @@ if os.path.isdir(cache_dir):
     # Create cachefile for next time
 ```
 
-### Plugin Status
+We have helper functions for dealing with the cache, see [Helper Library](#helper-library)
 
+### Plugin Status
 Plugin failures are caused by raising exceptions. Do this when something doesn't go right and the next best option is to fail.
 ```
 # Python
@@ -165,7 +170,7 @@ Tests are executed in the Komand WUI after configuring a plugin. A log of the JS
 
 The user parameters are available in the method as well.
 
-If the plugin is simple enough: 
+If the plugin is simple enough:
 * It doesn't present a rate limiting issue
 * Itexcutes quickly
 
@@ -219,7 +224,7 @@ The regex in the `get_value` method extracts the value from the `\nkey: value` p
 def get_value(self, key, stdout):
     '''Extracts value from key: value pair'''
     # Example: regex = "\nDomain Name: (google.com)\n"
-    regex = r"\n" + re.escape(key) + r": (.*)\n" 
+    regex = r"\n" + re.escape(key) + r": (.*)\n"
     r = re.search(regex, stdout)
     # Only return the value in the group 1 if it exists
     if hasattr(r, 'group'):
@@ -241,9 +246,9 @@ def run(self, params={}):
   ]
 
   for key in keys:
-    # Iterate over keys and store the extracted values into results 
+    # Iterate over keys and store the extracted values into results
     results[key] = self.get_value(key, stdout)
-  
+
   return results
 ```
 
@@ -270,7 +275,7 @@ docker run -i komand/myplugin test < test.json
 
 List of current functions:
 * clean_dict - Returns a new dict absent of keys with `None` type or empty strings
-* extract_value - A regular expression helper, that 
+* extract_value - A regular expression helper
 * check_cachefile - Checks if a cachefile exists and returns a boolean value
 * open_cachefile - Returns a file object from cache, and creates a new one if it doesn't exist
 * remove_cachefile - Removes a file from the cache and returns a boolean value for status
