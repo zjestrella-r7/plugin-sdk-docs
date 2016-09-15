@@ -10,6 +10,7 @@
   - [Plugin Status](#plugin-status)
   - [Tests](#test)
   - [Methods](#methods)
+  - [Helper Library](#helper-library)
   - [Verifying](#verifying)
 
 ## Writing your Plugin
@@ -247,6 +248,70 @@ def run(self, params={}):
 ```
 
 Once you define the function you can call it in the same python file by referring to itself e.g. `self.get_value(...)`
+
+
+### Helper Library
+
+We have a helper library that aids in common tasks. Functions can be accessed by `komand.helper.funcname` where funcname
+is the name of the function.
+
+You can execute in the `test` method or similar to get it to list the available functions. This will error out but you
+will see them. Use `help(komand.helper.funcname)` to get specifics. Though, we hope the documentation is sufficient
+enough and you don't have to do this hackish thing.
+```
+# Add to test function in <action>.py
+dir(komand.helper)
+
+make
+
+docker run -i komand/myplugin sample <action>  > test.json
+docker run -i komand/myplugin test < test.json
+```
+
+List of current functions:
+* clean_dict - Returns a new dict absent of keys with `None` type or empty strings
+* extract_value - A regular expression helper, that 
+* check_cachefile - Checks if a cachefile exists and returns a boolean value
+* open_cachefile - Returns a file object from cache, and creates a new one if it doesn't exist
+* remove_cachefile - Removes a file from the cache and returns a boolean value for status
+
+Example:
+```
+>>> a = { 'a': 'stuff', 'b': 1, 'c': None, 'd': 'more', 'e': '' }
+# Keys c and e are removed
+>>> Plugins.clean_dict(a)
+{'a': 'stuff', 'b': 1, 'd': 'more'}
+
+>>> Plugins.check_cachefile('/var/cache/mycache')
+True
+# This works too, /var/cache is not required
+>>> Plugins.check_cachefile('mycache')
+True
+>>> Plugins.check_cachefile('nofile')
+False
+
+>>> string = '\n\tShell: /bin/bash\n\t'
+>>> Plugins.extract_value(r'\s', 'Shell', r':\s(.*)\s', string)
+'/bin/bash'
+
+>>> os.listdir('/var/cache')
+['test']
+>>> Plugins.remove_cachefile('test')
+True
+>>> os.listdir('/var/cache')
+[]
+
+>>> f = Plugins.open_cachefile('/var/cache/test')
+>>> f.read()
+'stuff\n'
+
+>>> os.listdir('/var/cache')
+[]
+>>> f = Plugins.open_cachefile('/var/cache/myplugin/cache.file')
+# The file has been created
+>>> Plugins.check_cachefile('/var/cache/myplugin/cache.file')
+True
+```
 
 ### Verifying
 
