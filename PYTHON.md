@@ -163,6 +163,16 @@ Tests are executed in the Komand WUI after configuring a plugin. A log of the JS
 
 The user parameters are available in the method as well.
 
+If the plugin is simple enough: 
+* It doesn't present a rate limiting issue
+* Itexcutes quickly
+
+You can have the test method call the run method.
+```
+def test(self, params={}):
+  return self.run(params={})
+```
+
 Testing Examples:
 * Successful connections to API or service
 * Validating known output of command
