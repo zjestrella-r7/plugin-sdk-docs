@@ -14,3 +14,5 @@ Plugins in Komand can be built currently using Python or Go.
 [Writing Plugins in Python](PYTHON.md) - Writing Plugins with Python
 
 [Writing Plugins in Go Lang](GO.md) - Writing Plugins with Go Lang
+
+[Plugin Icons](ICON.md) - Finishing up the plugin
