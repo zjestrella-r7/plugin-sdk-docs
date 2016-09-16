@@ -141,6 +141,13 @@ if os.path.isdir(cache_dir):
 ```
 
 We have helper functions for dealing with the cache, see [Helper Library](#helper-library)
+```
+file = open_cachefile('/var/cache/mycache')
+remove_cachefile('/var/cache/mycache')
+True
+check_cachefile('/var/cache/mycache')
+False
+```
 
 ### Plugin Status
 Plugin failures are caused by raising exceptions. Do this when something doesn't go right and the next best option is to fail.
