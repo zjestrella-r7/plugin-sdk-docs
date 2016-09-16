@@ -279,43 +279,72 @@ List of current functions:
 * check_cachefile - Checks if a cachefile exists and returns a boolean value
 * open_cachefile - Returns a file object from cache, and creates a new one if it doesn't exist
 * remove_cachefile - Removes a file from the cache and returns a boolean value for status
+* open_url - Returns a URL object
+* exec_command - Returns a dictionary of stdout, stderr, and return code of executed command
 
-Example:
+#### Examples:
+
+* `clean_dict(dict)` takes a dictionary as an argument
 ```
 >>> a = { 'a': 'stuff', 'b': 1, 'c': None, 'd': 'more', 'e': '' }
 # Keys c and e are removed
->>> Plugins.clean_dict(a)
+>>> komand.helper.clean_dict(a)
 {'a': 'stuff', 'b': 1, 'd': 'more'}
+```
 
->>> Plugins.check_cachefile('/var/cache/mycache')
+* `check_cachefile('path')` takes a string of the file path to check
+```
+>>> komand.helper.check_cachefile('/var/cache/mycache')
 True
 # This works too, /var/cache is not required
->>> Plugins.check_cachefile('mycache')
+>>> komand.helper.check_cachefile('mycache')
 True
->>> Plugins.check_cachefile('nofile')
+>>> komand.helper.check_cachefile('nofile')
 False
+```
 
->>> string = '\n\tShell: /bin/bash\n\t'
->>> Plugins.extract_value(r'\s', 'Shell', r':\s(.*)\s', string)
-'/bin/bash'
-
+* `remove_cachefile('path')` takes a file path as a string
+```
 >>> os.listdir('/var/cache')
 ['test']
->>> Plugins.remove_cachefile('test')
+>>> komand.helper.remove_cachefile('test')
 True
 >>> os.listdir('/var/cache')
 []
+```
 
->>> f = Plugins.open_cachefile('/var/cache/test')
+* `open_cachefile('file')` takes a file path as a string
+```
+>>> f = komand.helper.open_cachefile('/var/cache/test')
 >>> f.read()
 'stuff\n'
-
 >>> os.listdir('/var/cache')
 []
->>> f = Plugins.open_cachefile('/var/cache/myplugin/cache.file')
+>>> f = komand.helper.open_cachefile('/var/cache/myplugin/cache.file')
 # The file has been created
->>> Plugins.check_cachefile('/var/cache/myplugin/cache.file')
+>>> komand.helper.check_cachefile('/var/cache/myplugin/cache.file')
 True
+```
+
+* `extract_value()` Takes 4 arguments that regexes/patterns as strings
+```
+>>> string = '\n\tShell: /bin/bash\n\t'
+>>> komand.helper.extract_value(r'\s', 'Shell', r':\s(.*)\s', string)
+'/bin/bash'
+```
+
+* `open_url('http://blah.com')` takes a URL as a string
+```
+>>> resp = open_url('http://google.com')
+>>> resp.read()
+'<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="en"><head><meta content="Se...'
+```
+
+* `exec_command('path arg1 arg2')` takes a command and its arguments as a string
+```
+>>> exec_command('/bin/ls')
+{'rcode': 0, 'stderr': '', 'stdout':
+'GO.md\nPYTHON.md\nREADME.md\nSPEC.md\nball.pyc\nimgs\nold.py\nplugins.py\nplugins.pyc\nstatic.py\nstatic.pyc\n'}
 ```
 
 ### Verifying
