@@ -267,15 +267,17 @@ Once you define the function you can call it in the same python file by referrin
 We have a helper library that aids in common tasks. Functions can be accessed by `komand.helper.funcname` where funcname
 is the name of the function.
 
-You can execute in the `test` method or similar to get it to list the available functions. This will error out but you
+You can execute code in `test` method or similar to get a list of the available functions. This will error out but you
 will see them. Use `help(komand.helper.funcname)` to get specifics. Though, we hope the documentation is sufficient
 enough and you don't have to do this hackish thing.
 ```
 # Add to test function in <action>.py
 dir(komand.helper)
+# Get more info on a specific function
+help(komand.helper.extract_value)
 
+# Run these in your plugins directory e.g. plugins/myplugin
 make
-
 docker run -i komand/myplugin sample <action>  > test.json
 docker run -i komand/myplugin test < test.json
 ```
