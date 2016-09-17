@@ -56,13 +56,15 @@ the [Helper Library](#helper-library)
 
 ### Parameters
 
-Input variables defined in the spec file are available in a dictionary called `params` where the value can be accessed
-by the variable/key name, these are our input variables names described in the `plugin.spec.yaml` file.
-We can do this the long way or in shorter form:
+#### Actions
+
+Input variables defined in the `plugin.spec.yaml` file are available in a dictionary called `params` where the value can be accessed
+by the variable/key name, these are our input variables names described in the `plugin.spec.yaml` file. We can do this the long way or in shorter form:
 ```
-# Python
-self.input.parameters['var']
-params['var']
+def run(self, params):
+  ...
+  self.input.parameters['var']
+  params['var']
 ```
 
 We can also use the better `params.get()` method which
@@ -72,6 +74,28 @@ We can also use the better `params.get()` method which
 
 ```
 value = params.get('var', 'blah')
+```
+
+#### Triggers
+
+#### Connections
+
+You can access the connection variables defined in `plugin.spec.yaml` while in `connection.py` using a dictionary called `params` where 
+the value can be accessed by the key. We can do this the long way or in shorter form:
+
+```
+def connect(self, params):
+     ...
+     value = params.get('var')
+     value = self.parameters['var']
+```
+
+You also need to access the connection variables in the `run` method to get the connection info. It's similar to the other examples.
+
+```
+def run(self, params):
+  ...
+  value = self.connection.var
 ```
 
 ### Logging
