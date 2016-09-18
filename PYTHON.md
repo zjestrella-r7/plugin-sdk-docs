@@ -37,17 +37,24 @@ variables = {
 return variables
 ```
 
-Example of returning only meaningful variables:
+A contrived example of returning only meaningful variables:
 ```
-if ip is not '':
-  variables['Host'] = ip
-if fullname is not '':
-  variables['Name'] = fullname
-
+variables = {
+  'Host': ip,
+  'Name': ''
+}
+if variables.get('Host') == None:
+  del variables['Host']
+if variables['Host'] == '':
+  del variables['Host']
+if variables.get('Name') == None:
+  del variables['Name']
+if variables['Name'] == '':
+  del variables['Name']
 return variables
 ```
 
-In other words, don't do this:
+In other words, don't do this where we manually fill out values (e.g. `'N/A'`):
 ![All Variables](imgs/var_all.png)
 
 We have a helper function called `clean_dict` that will automatically remove keys with `None` type values and empty
