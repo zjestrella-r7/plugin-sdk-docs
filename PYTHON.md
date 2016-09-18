@@ -365,6 +365,7 @@ docker run -i komand/myplugin test < test.json
 
 List of current functions:
 * clean_dict - Returns a new dict absent of keys with `None` type or empty strings
+* clean_list - Returns a new list absent of elements with `None` type or empty strings
 * extract_value - A regular expression helper
 * check_cachefile - Checks if a cachefile exists and returns a boolean value
 * open_cachefile - Returns a file object from cache, and creates a new one if it doesn't exist
@@ -374,12 +375,19 @@ List of current functions:
 
 #### Examples:
 
-* `clean_dict(dict)` takes a dictionary as an argument
+* `clean_dict(dict)` takes a dictionary as an argument and returns a new, cleand, list
 ```
 >>> a = { 'a': 'stuff', 'b': 1, 'c': None, 'd': 'more', 'e': '' }
 # Keys c and e are removed
 >>> komand.helper.clean_dict(a)
 {'a': 'stuff', 'b': 1, 'd': 'more'}
+```
+
+* `clean_list(lst)` takes a list as an argument and returns a new, cleaned, list
+```
+>>> lst = [ 'stuff', 1, None, 'more', '', None, '' ]
+>>> clean_list(lst)
+['stuff', 1, 'more']
 ```
 
 * `check_cachefile('path')` takes a string of the file path to check
