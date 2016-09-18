@@ -386,9 +386,12 @@ Before committing the plugin, always verify that the functionality works to the 
 friendly and the best way to test and figure out if your plugin meets those requirements is to get it working in Komand
 product. All developers should do this.
 
+You can import the plugin via the command-line with `komand plugin register <plugin.tgz>` or using the web interface
+described below.
+
 ![Import Plugin](imgs/import_plugin.png)
 
-1. Open up the web interface `https://127.0.0.1:3000` for the Vagrant config
+1. Open up the web interface `https://127.0.0.1:8888` for the Vagrant config
 2. Authenticate
 3. `Settings -> Import A Plugin`
 4. Choose the tarball that the `makefile` generated
