@@ -6,7 +6,7 @@
   - [Branch Names](#branch-names)
   - [Commit Messages](#commit-messages)
   - [Property Names](#property-names)
-  - [Loggign](#logging)
+  - [Logging](#logging)
   - [Tests](#tests)
 
 ## Conventions
@@ -24,9 +24,9 @@ Regarding the name of the plugin as defined in the `plugin.spec.yaml` file.
 * Names should be lowercase e.g. `myplugin`
 * Names should be succinct and represent their purpose or servicename e.g. ServiceNow should be `servicenow`
 * Use underscores to separate words if not a company or service name e.g. `get_url`
-* For websites, if domain is unique enough avoid tld e.g. freegeoip.net should be `freegeoip`
-* For websites, if domain is not unique enough add tld e.g. ifconfig is unix tool, web service ifconfig.co should be `ifconfig_co`
-* Numbers are valid in the plugin names e.g. `geolite2`
+* Where service and website is same, if domain is unique enough avoid top-level domain e.g. freegeoip.net should be `freegeoip`
+* Where service and website is same, if domain is not unique add top-level domain e.g. ifconfig is unix tool, web service ifconfig.co should be `ifconfig_co`
+* Numbers are valid in plugin names e.g. `geolite2`
 * Characters other than alpha-numeric and underscore are not allowed
 
 ### Branch Names
@@ -54,17 +54,29 @@ See [Git Best Practices](http://tbaggery.com/2008/04/19/a-note-about-git-commit-
 ##### Good: 
 
 >  Add Phishtank Plugin (#47)
+
 >  Update README example to match imap spec.
+
 >  Create README.md
+
 >  Remove Imap prefix to all names since imap is the package.
+
 >  Add basic headers (to, from, subject, date) and body to IMAP MessageEvent.  Process actual events from given inbox and send to queue.
+
 >  Change sleep duration to frequency and remove filter for now
+
 >  Refactor imap plugin for expandability to additional triggers and actions. Add in validation to Connection and Trigger input.
+
 >  Move everything up a directory.  Fix issue where you cannot go get private repo locally.
+
 >  Use new API for calling triggers and actions
+
 >  Refactor IMAP plugin to use new plugin-sdk
+
 >  Update example to use new plugin-sdk
+
 >  Remove extraneous comments
+
 >  Remove -f flag from docker tag command
 
 ##### Bad:
@@ -73,7 +85,7 @@ See [Git Best Practices](http://tbaggery.com/2008/04/19/a-note-about-git-commit-
 
 ### Property Names
 
-Properties, are defined here. These include input/output variables, actions, triggers, and connections names.
+Property names are defined here. These include input/output variables, actions, triggers, and connections names.
 
 ##### Common
 
@@ -115,7 +127,7 @@ except requests.ConnectionError:
 
 Each plugin should include JSON test files in the `tests` directory.
 
-The are generated with `docker run komand/<plugin> sample <action> | jq '.' > tests/<testname>`
+They are generated with `docker run komand/<plugin> sample <action> | jq '.' > tests/<testname>`
 
 #### Rules
 
