@@ -30,6 +30,8 @@ input variable called `option` to the finger action in the finger plugin. You ne
 action file `finger/actions/finger.py`.
 
 ```
+--- a/finger/actions/finger.py
++++ b/finger/actions/finger.py
 @@ -19,6 +19,11 @@ class FingerInput(komand.Input):
        "type": "string",
        "title": "User",
@@ -42,8 +44,6 @@ action file `finger/actions/finger.py`.
      }
    },
    "required": [
-diff --git a/finger/plugin.spec.yaml b/finger/plugin.spec.yaml
-index 6b01f3b..2d2253e 100644
 --- a/finger/plugin.spec.yaml
 +++ b/finger/plugin.spec.yaml
 actions:
