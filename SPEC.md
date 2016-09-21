@@ -103,9 +103,9 @@ At the top of the spec, you define metadata about your plugin such as the name, 
 
   * Please be sure to update the `vendor`, `name`, and `version` with the proper data. You can use letters, numbers, and underscores.  The vendor must be a unique vendor name. You can optionally provide a `title` which will be uploaded to the Komand UI.
 
-  * `icon`: You can optional provide a base64 encoded icon to be used by your plugin.
+  * `icon`: You can optionally provide a base64 encoded icon to be used by your plugin.
 
-  * `tags`: Tags are optional tags that describe your plugin's functionality
+  * `tags`: Optional tags that describe your plugin's functionality.
   
   * `enable_cache`: Persistent storage in `/var/cache` across a plugin's containers.
 
