@@ -7,6 +7,7 @@
   - [Commit Messages](#commit-messages)
   - [Property Names](#property-names)
   - [Logging](#logging)
+  - [Todo](#todo)
   - [Tests](#tests)
 
 ## Conventions
@@ -51,7 +52,7 @@ See [Git Best Practices](http://tbaggery.com/2008/04/19/a-note-about-git-commit-
 
 #### Examples
 
-##### Good: 
+##### Good:
 
 >  Add Phishtank Plugin (#47)
 
@@ -121,6 +122,16 @@ except requests.exceptions.TooManyRedirects:
   logging.error('Requests: TooManyRedirects for %s', url)
 except requests.ConnectionError:
   logging.error('Requests: ConnectionError for %s', url)
+```
+
+### Todo
+
+Remove the TODO lines when tasks have been completed.
+
+Example
+```
+def run(self, params={}):
+  """TODO: Run action"""
 ```
 
 ### Tests
