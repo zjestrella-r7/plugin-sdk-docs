@@ -371,6 +371,7 @@ List of current functions:
 * open_cachefile - Returns a file object from cache, and creates a new one if it doesn't exist
 * remove_cachefile - Removes a file from the cache and returns a boolean value for status
 * open_url - Returns a URL object
+* get_url_filename - Returns a filename from url using content-disposition or file name in url, or `None` type
 * exec_command - Returns a dictionary of stdout, stderr, and return code of executed command
 
 #### Examples:
@@ -436,6 +437,18 @@ True
 >>> resp = open_url('http://google.com')
 >>> resp.read()
 '<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="en"><head><meta content="Se...'
+```
+
+* `get_url_filename('http://blah.com')` takes a URL as a string, returns filename as string or None
+```
+>>> url = 'http://www.irongeek.com/robots.txt'
+>>> get_url_filename(url)
+'robots.txt'
+>>> get_url_filename('http://203.66.168.223:83/')
+'Create_By_AutoWeb.htm'
+>>> if get_url_filename('http://www.google.com') is None:
+...   print 'No file found'
+No file found
 ```
 
 * `exec_command('path arg1 arg2')` takes a command and its arguments as a string
