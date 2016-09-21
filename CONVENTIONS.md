@@ -3,6 +3,7 @@
 
 - [Conventions](#conventions)
   - [Plugin Names](#plugin-names)
+  - [Spec](#spec)
   - [Branch Names](#branch-names)
   - [Commit Messages](#commit-messages)
   - [Property Names](#property-names)
@@ -30,6 +31,70 @@ Regarding the name of the plugin as defined in the `plugin.spec.yaml` file.
 * Numbers are valid in plugin names e.g. `geolite2`
 * Characters other than alpha-numeric and underscore are not allowed
 
+### Spec
+
+In the spec file `plugins.spec.yaml`, only quote titles, names, and descriptions.
+
+#### Line Breaks
+
+Schema sections: metadata, triggers, action, connections, should be separated by a line break.
+
+Example
+```
+...
+tags: [ "blah" ]
+icon: "blah"
+
+triggers:
+  my_trigger1:
+    blah:
+      blah:
+  my_trigger2:
+    blah:
+      blah:
+
+actions:
+  my_action1:
+    blah:
+      blah:
+  my_action2:
+    blah:
+      blah:
+```
+
+#### Quoting
+
+Good: 
+```
+input:
+  url:
+    type: string
+    description: "URL to Download"
+    required: true
+  timeout:
+    description: "Optional timeout in seconds"
+    type: integer
+    default: 60
+output: 
+  bytes:
+    title: "Base64 Encoded File"
+```
+
+Bad: 
+```
+input:
+  url:
+    type: "string" # This shouldn't be quoted
+    description: "URL to Download"
+    required: "true" # This shouldn't be quoted
+  timeout:
+    type: "integer" # This shouldn't be quoted
+    description: "Optional timeout in seconds"
+    default: "60" # This shouldn't be quoted
+output: 
+  bytes:
+    title: Base64 Encoded File # This should be quoted
+```
 ### Branch Names
 
 Git branch names should follow [Plugin Names](#plugin-names) rules. Always work from a topic branch of the same name as the plugin.
