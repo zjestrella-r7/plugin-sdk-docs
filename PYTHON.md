@@ -366,10 +366,13 @@ docker run -i komand/myplugin test < test.json
 List of current functions:
 * clean_dict - Returns a new dict absent of keys with `None` type or empty strings
 * clean_list - Returns a new list absent of elements with `None` type or empty strings
+* open_file - Returns a file object read only or None
 * extract_value - A regular expression helper
 * check_cachefile - Checks if a cachefile exists and returns a boolean value
 * open_cachefile - Returns a file object from cache, and creates a new one if it doesn't exist
 * remove_cachefile - Removes a file from the cache and returns a boolean value for status
+* get_hashes_string - Returns a dictionary of hashes from a string
+* check_hashes - Returns a boolean on whether checksum was a hash of provided string. Supports MD5, SHA(1,256,512)
 * open_url - Returns a URL object
 * get_url_filename - Returns a filename from url using content-disposition or file name in url, or `None` type
 * exec_command - Returns a dictionary of stdout, stderr, and return code of executed command
@@ -389,6 +392,13 @@ List of current functions:
 >>> lst = [ 'stuff', 1, None, 'more', '', None, '' ]
 >>> clean_list(lst)
 ['stuff', 1, 'more']
+```
+
+* `open_file('path')` takes a file path as a string to open and returns a file object on success or None
+```
+>>> f = open_file('/tmp/testfile')
+>>> f.read()
+'test\n'
 ```
 
 * `check_cachefile('path')` takes a string of the file path to check
@@ -423,6 +433,21 @@ True
 # The file has been created
 >>> komand.helper.check_cachefile('/var/cache/myplugin/cache.file')
 True
+```
+
+
+* `get_hashes_string(str)` returns a dictionary of hashes from a string
+* `check_hashes(src, checksum)` returns a boolean on whether checksum was a hash of provided string
+```
+>>> get_hashes_string('thisisastring')
+{u'sha256': '572642d5581b8b466da59e87bf267ceb7b2afd880b59ed7573edff4d980eb1d5', u'sha1':
+'93697ac6942965a0814ed2e4ded7251429e5c7a7', u'sha512':
+'9145416eb9cc0c9ff3aecbe9a400f21ca2b99c927f63a9a245d22ac4fe6fe27036643e373708e3bdf7ace4f3b52573182ec6d1f38c7d25f9e06144617ad1cdc8',
+u'md5': '0bba161a7165a211c7435c950ee78438'}
+>>> check_hashes('thisisastring', '0bba161a7165a211c7435c950ee78438')
+True
+>>> f = open_file('/bin/ls')
+>>> check_hashes(f.read(), 'c7485092a3159745044ef9ebed9d4bcdca057bab')
 ```
 
 * `extract_value()` Takes 4 arguments that regexes/patterns as strings

@@ -3,10 +3,13 @@
 
 - [Conventions](#conventions)
   - [Plugin Names](#plugin-names)
+  - [Spec](#spec)
   - [Branch Names](#branch-names)
   - [Commit Messages](#commit-messages)
   - [Property Names](#property-names)
+  - [Quoting](#quoting)
   - [Logging](#logging)
+  - [Todo](#todo)
   - [Tests](#tests)
 
 ## Conventions
@@ -29,6 +32,70 @@ Regarding the name of the plugin as defined in the `plugin.spec.yaml` file.
 * Numbers are valid in plugin names e.g. `geolite2`
 * Characters other than alpha-numeric and underscore are not allowed
 
+### Spec
+
+In the spec file `plugins.spec.yaml`, only quote titles, names, and descriptions.
+
+#### Line Breaks
+
+Schema sections: metadata, triggers, action, connections, should be separated by a line break.
+
+Example
+```
+...
+tags: [ "blah" ]
+icon: "blah"
+
+triggers:
+  my_trigger1:
+    blah:
+      blah:
+  my_trigger2:
+    blah:
+      blah:
+
+actions:
+  my_action1:
+    blah:
+      blah:
+  my_action2:
+    blah:
+      blah:
+```
+
+#### Quoting
+
+Good: 
+```
+input:
+  url:
+    type: string
+    description: "URL to Download"
+    required: true
+  timeout:
+    description: "Optional timeout in seconds"
+    type: integer
+    default: 60
+output: 
+  bytes:
+    title: "Base64 Encoded File"
+```
+
+Bad: 
+```
+input:
+  url:
+    type: "string" # This shouldn't be quoted
+    description: "URL to Download"
+    required: "true" # This shouldn't be quoted
+  timeout:
+    type: "integer" # This shouldn't be quoted
+    description: "Optional timeout in seconds"
+    default: "60" # This shouldn't be quoted
+output: 
+  bytes:
+    title: Base64 Encoded File # This should be quoted
+```
 ### Branch Names
 
 Git branch names should follow [Plugin Names](#plugin-names) rules. Always work from a topic branch of the same name as the plugin.
@@ -51,7 +118,7 @@ See [Git Best Practices](http://tbaggery.com/2008/04/19/a-note-about-git-commit-
 
 #### Examples
 
-##### Good: 
+##### Good:
 
 >  Add Phishtank Plugin (#47)
 
@@ -89,7 +156,7 @@ Property names are defined here. These include input/output variables, actions, 
 
 ##### Common
 
-* `host` - Neutral: Used when either an IP address or domain name can be the value. 
+* `host` - Neutral: Used when either an IP address or domain name can be the value.
 * `address` - Used for IP address values only (IPv4 or IPv6) e.g. `8.8.8.8`
 * `domain` - Used for domain name values only e.g. `www.google.com`
 
@@ -100,14 +167,28 @@ Property names are defined here. These include input/output variables, actions, 
 * Use underscores to separate words if not succinct `metro_code`
 * Characters other alpha and underscores are not allowed
 
+### Quoting
+
+In your code, make quoting consistent
+
+Good:
+```
+return {'file': e_file ,'status': 'file not modified', 'status_code': '200'}
+```
+
+Bad:
+```
+return {"file": e_file ,"status": 'file not modified', "status_code": '200'}
+```
+
 ### Logging
 
-When logging, 
+When logging,
 
 #### Exceptions
 
 * Write library where the exception is being handled from
-* Write the exception type 
+* Write the exception type
 * Write description with values used to help debug the error
 
 Form: `'<Library>: <Exception/Error>: <Description>'`
@@ -121,6 +202,16 @@ except requests.exceptions.TooManyRedirects:
   logging.error('Requests: TooManyRedirects for %s', url)
 except requests.ConnectionError:
   logging.error('Requests: ConnectionError for %s', url)
+```
+
+### Todo
+
+Remove the TODO lines when tasks have been completed.
+
+Example
+```
+def run(self, params={}):
+  """TODO: Run action"""
 ```
 
 ### Tests
