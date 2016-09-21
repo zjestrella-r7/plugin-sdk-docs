@@ -7,6 +7,7 @@
   - [Branch Names](#branch-names)
   - [Commit Messages](#commit-messages)
   - [Property Names](#property-names)
+  - [Quoting](#quoting)
   - [Logging](#logging)
   - [Todo](#todo)
   - [Tests](#tests)
@@ -165,6 +166,20 @@ Property names are defined here. These include input/output variables, actions, 
 * Names should be succinct and represent their purpose, limit of 2 words e.g. `country_code`
 * Use underscores to separate words if not succinct `metro_code`
 * Characters other alpha and underscores are not allowed
+
+### Quoting
+
+In your code, make quoting consistent
+
+Good:
+```
+return {'file': e_file ,'status': 'file not modified', 'status_code': '200'}
+```
+
+Bad:
+```
+return {"file": e_file ,"status": 'file not modified', "status_code": '200'}
+```
 
 ### Logging
 
