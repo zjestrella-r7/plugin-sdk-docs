@@ -372,8 +372,7 @@ List of current functions:
 * open_cachefile - Returns a file object from cache, and creates a new one if it doesn't exist
 * remove_cachefile - Removes a file from the cache and returns a boolean value for status
 * get_hashes_string - Returns a dictionary of hashes from a string
-* get_hashes_file - Returns a dictionary of hashes from a file object
-* check_hashes - Returns a boolean on whether checksum was a hash of src: file object or string
+* check_hashes - Returns a boolean on whether checksum was a hash of provided string. Supports MD5, SHA(1,256,512)
 * open_url - Returns a URL object
 * get_url_filename - Returns a filename from url using content-disposition or file name in url, or `None` type
 * exec_command - Returns a dictionary of stdout, stderr, and return code of executed command
@@ -438,8 +437,7 @@ True
 
 
 * `get_hashes_string(str)` returns a dictionary of hashes from a string
-* `get_hashes_file(file)` returns a dictionary of hashes from a file object
-* `check_hashes(src, checksum)` returns a boolean on whether checksum was a hash of src: file object or string
+* `check_hashes(src, checksum)` returns a boolean on whether checksum was a hash of provided string
 ```
 >>> get_hashes_string('thisisastring')
 {u'sha256': '572642d5581b8b466da59e87bf267ceb7b2afd880b59ed7573edff4d980eb1d5', u'sha1':
@@ -448,14 +446,8 @@ True
 u'md5': '0bba161a7165a211c7435c950ee78438'}
 >>> check_hashes('thisisastring', '0bba161a7165a211c7435c950ee78438')
 True
->>> f = open_cachefile('/var/cache/myplugin/cache.file')
->>> get_hashes_file(f)
-{u'sha256': 'f299a401e4eeffacdf5db8d1090cc4e9aecf30aa3107c82854d8b255c2beae75', u'sha1':
-'008afefee30b70e0e43cb8289daa8474994d76bd', u'sha512':
-'9cd861f4c3de1ad5c0154d744ed3a7aedf73999b63e1e2edd1bd97308f3336372169c1780f1ab5e7ff99f3d49c6eebe97f37a066c45de623664d3b871afa86c1',
-u'md5': 'e6966da64b080ef46222fa43b337dbd4'}
->>> check_hashes(f, 'e6966da64b080ef46222fa43b337dbd4')
-True
+>>> f = open_file('/bin/ls')
+>>> check_hashes(f.read(), 'c7485092a3159745044ef9ebed9d4bcdca057bab')
 ```
 
 * `extract_value()` Takes 4 arguments that regexes/patterns as strings
