@@ -89,7 +89,7 @@ Property names are defined here. These include input/output variables, actions, 
 
 ##### Common
 
-* `host` - Neutral: Used when either an IP address or domain name can be the value. 
+* `host` - Neutral: Used when either an IP address or domain name can be the value.
 * `address` - Used for IP address values only (IPv4 or IPv6) e.g. `8.8.8.8`
 * `domain` - Used for domain name values only e.g. `www.google.com`
 
@@ -102,12 +102,12 @@ Property names are defined here. These include input/output variables, actions, 
 
 ### Logging
 
-When logging, 
+When logging,
 
 #### Exceptions
 
 * Write library where the exception is being handled from
-* Write the exception type 
+* Write the exception type
 * Write description with values used to help debug the error
 
 Form: `'<Library>: <Exception/Error>: <Description>'`
