@@ -446,7 +446,8 @@ True
 
 * `unlock_cache('file', delay)` Takes a file path as a string and a delay length in seconds as an int or a float. 
 ```
->>> f = komand.helper.unlock_cache('/var/cache/lock/lock1', 60)
+>>> delay = 60
+>>> f = komand.helper.unlock_cache('/var/cache/lock/lock1', delay)
 # Sixty seconds later
 >>> f
 True
