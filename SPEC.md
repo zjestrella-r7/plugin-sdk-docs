@@ -31,6 +31,8 @@ Plugins in Komand can be built currently using Python or Go.
 
 Plugins support any number of `triggers` or `actions`.  Plugins are defined using a `plugin.spec.yaml`, and a plugin shell can be codegen'd using `komand plugin generate [python|go] <path/to/plugin.spec.yaml>`. 
 
+When writing plugins, it's recommended to work directly out of the `plugins` repository. Locate your `plugins.spec.yaml` to `plugins/plugin.spec.yaml` and generate the skeleton from there so it fits nicely with the other plugins.
+
 ## Example: Creating a plugin
 
 ### Step 1: Defining the Plugin Specification
