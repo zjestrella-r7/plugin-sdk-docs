@@ -451,6 +451,11 @@ True
 # Sixty seconds later
 >>> f
 True
+>>> file_name = '/var/cache/lock/lock1'
+>>> f = komand.helper.unlock_cache(file_name, 60)
+# Sixty seconds later
+>>> f
+True
 ```
 
 * `get_hashes_string(str)` returns a dictionary of hashes from a string
