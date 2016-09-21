@@ -442,6 +442,7 @@ True
 >>> f = komand.helper.lock_cache('/var/cache/lock/lock1')
 >>> f
 True
+```
 
 * `unlock_cache('file', delay)` Takes a file path as a string and a delay length in seconds as an int or a float. 
 ```
@@ -449,6 +450,7 @@ True
 # Sixty seconds later
 >>> f
 True
+```
 
 * `get_hashes_string(str)` returns a dictionary of hashes from a string
 * `check_hashes(src, checksum)` returns a boolean on whether checksum was a hash of provided string
