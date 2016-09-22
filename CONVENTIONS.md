@@ -65,7 +65,7 @@ actions:
 
 #### Quoting
 
-Good: 
+Good:
 ```
 input:
   url:
@@ -76,12 +76,12 @@ input:
     description: "Optional timeout in seconds"
     type: integer
     default: 60
-output: 
+output:
   bytes:
     title: "Base64 Encoded File"
 ```
 
-Bad: 
+Bad:
 ```
 input:
   url:
@@ -92,7 +92,7 @@ input:
     type: "integer" # This shouldn't be quoted
     description: "Optional timeout in seconds"
     default: "60" # This shouldn't be quoted
-output: 
+output:
   bytes:
     title: Base64 Encoded File # This should be quoted
 ```
