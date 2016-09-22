@@ -96,6 +96,11 @@ output:
   bytes:
     title: Base64 Encoded File # This should be quoted
 ```
+
+#### Punctuation
+
+Do not add end of sentence punctuation to `titles`, `names`, and `descriptions`. Other fields should not have them anyway.
+
 ### Branch Names
 
 Git branch names should follow [Plugin Names](#plugin-names) rules. Always work from a topic branch of the same name as the plugin.
