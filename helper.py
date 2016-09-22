@@ -141,10 +141,10 @@ def remove_cachefile(cache_file):
 
 def lock_cache(lock_file):
   '''Returns boolean on whether lock was created'''
-  cache_dir  = '/var/cache/lock'
-  if cache_dir not in lock_file:
-    lock_file = cache_dir + '/' + cache_file
-  if os.path.isdir(cache_dir):
+  lock_dir  = '/var/cache/lock'
+  if not lock_file.startswith('/'):
+    lock_file = lock_dir + '/' + lock_file
+  if os.path.isdir(lock_dir):
     while os.path.isfile(lock_file):
       pass
 	if not os.path.isdir(os.path.dirname(lock_file)):
@@ -158,13 +158,13 @@ def lock_cache(lock_file):
 def unlock_cache(lock_file, wait_time):
   '''Returns boolean on whether lock was released'''
   '''Wait_time value used to wait before unlocking and is measured in seconds'''
-  cache_dir  = '/var/cache/lock'
-  if cache_dir not in lock_file:
-    cache_file = cache_dir + '/' + cache_file
-  if os.path.isdir(cache_dir):
-    if os.path.isfile(cache_file):
+  lock_dir  = '/var/cache/lock'
+  if not lock_file.startswith('/'):
+    lock_file = lock_dir + '/' + lock_file
+  if os.path.isdir(lock_dir):
+    if os.path.isfile(lock_file):
 	  time.sleep(wait_time)
-      os.remove(cache_file)
+      os.remove(lock_file)
       return True
     logging.info('Cache unlock %s failed, lock not released', lock_file)
   return False
