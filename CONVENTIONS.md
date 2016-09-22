@@ -183,7 +183,31 @@ return {"file": e_file ,"status": 'file not modified', "status_code": '200'}
 
 ### Logging
 
-When logging,
+When logging, use the following conventions:
+
+* `FunctionName: Message`
+  * Where FunctionName is the name of the function from which logging is called
+  * Capitalize the first letter in each word of the function name
+  * Capitalize the first letter in each colon delimited section
+
+Example:
+```
+def check_cachefile():
+  logging.info('CheckCacheFile: File %s did not exist', cache_file)
+```
+
+For logging after catching exception from a library, use the library name:
+
+* `LibaryName: ExceptionName: Message`
+  * Where LibaryName is the name of the library from which logging
+  * Capitalize the first letter in each word of the library
+  * Capitalize the first letter in each colon delimited section
+
+Example:
+```
+except requests.exceptions.HTTPError:
+  logging.error('Requests: HTTPError: status code %s for %s', str(resp.status_code), url)
+```
 
 #### Exceptions
 
