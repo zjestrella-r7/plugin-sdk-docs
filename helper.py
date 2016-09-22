@@ -138,7 +138,7 @@ def remove_cachefile(cache_file):
     if os.path.isfile(cache_file):
       os.remove(cache_file)
       return True
-    logging.info('Cache file %s did not exist, not removing it', cache_file)
+    logging.info('RemoveCacheFile: Cache file %s did not exist', cache_file)
   return False
 
 def lock_cache(lock_file):
