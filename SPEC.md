@@ -109,7 +109,7 @@ At the top of the spec, you define metadata about your plugin such as the name, 
 
   * `tags`: Optional tags that describe your plugin's functionality.
   
-  * `enable_cache`: Persistent storage in `/var/cache` across a plugin's containers.
+  * `enable_cache`: Persistent storage in `/var/cache` across a plugin's containers. Cache can be tested via `docker run -v /var/cache:/var/cache -i komand/myplugin --debug run < tests/blah.json`
 
 
 #### Types section
