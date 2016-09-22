@@ -371,6 +371,8 @@ List of current functions:
 * check_cachefile - Checks if a cachefile exists and returns a boolean value
 * open_cachefile - Returns a file object from cache, and creates a new one if it doesn't exist
 * remove_cachefile - Removes a file from the cache and returns a boolean value for status
+* lock_cache - Checks if a lock file exists. If so, it waits, else it creates one and returns boolean value
+* unlock_cache - Removes a lock file after waiting a specified amount of time and returns a boolean value
 * get_hashes_string - Returns a dictionary of hashes from a string
 * check_hashes - Returns a boolean on whether checksum was a hash of provided string. Supports MD5, SHA(1,256,512)
 * open_url - Returns a URL object
@@ -435,6 +437,26 @@ True
 True
 ```
 
+* `lock_cache('file')` takes a file path as a string
+```
+>>> f = komand.helper.lock_cache('/var/cache/lock/lock1')
+>>> f
+True
+```
+
+* `unlock_cache('file', delay)` Takes a file path as a string and a delay length in seconds as an int or a float. 
+```
+>>> delay = 60
+>>> f = komand.helper.unlock_cache('/var/cache/lock/lock1', delay)
+# Sixty seconds later
+>>> f
+True
+>>> file_name = '/var/cache/lock/lock1'
+>>> f = komand.helper.unlock_cache(file_name, 60)
+# Sixty seconds later
+>>> f
+True
+```
 
 * `get_hashes_string(str)` returns a dictionary of hashes from a string
 * `check_hashes(src, checksum)` returns a boolean on whether checksum was a hash of provided string
