@@ -142,6 +142,8 @@ def remove_cachefile(cache_file):
 def lock_cache(lock_file):
   '''Returns boolean on whether lock was created'''
   lock_dir  = '/var/cache/lock'
+  if not os.path.isdir(lock_dir):
+    os.makedirs(lock_dir)
   if not lock_file.startswith('/'):
     lock_file = lock_dir + '/' + lock_file
   if os.path.isdir(lock_dir):
@@ -151,7 +153,7 @@ def lock_cache(lock_file):
       os.makedirs(os.path.dirname(lock_file))
     f = open(lock_file, 'w')
     logging.info('Cache lock %s created', lock_file)
-    return f
+    return True
   logging.info('Cache lock %s failed, lock not created', lock_file)
   return False
 	
@@ -163,7 +165,7 @@ def unlock_cache(lock_file, wait_time):
     lock_file = lock_dir + '/' + lock_file
   if os.path.isdir(lock_dir):
     if os.path.isfile(lock_file):
-	  time.sleep(wait_time)
+      time.sleep(wait_time)
       os.remove(lock_file)
       return True
     logging.info('Cache unlock %s failed, lock not released', lock_file)
