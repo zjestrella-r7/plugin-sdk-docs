@@ -7,6 +7,7 @@
   - [Branch Names](#branch-names)
   - [Commit Messages](#commit-messages)
   - [Property Names](#property-names)
+  - [Variable Names](#variable-names)
   - [Quoting](#quoting)
   - [Logging](#logging)
   - [Todo](#todo)
@@ -171,6 +172,12 @@ Property names are defined here. These include input/output variables, actions, 
 * Names should be succinct and represent their purpose, limit of 2 words e.g. `country_code`
 * Use underscores to separate words if not succinct `metro_code`
 * Characters other alpha and underscores are not allowed
+
+### Variable Names
+
+##### Python
+
+Lower case variable names and underscores are permitted. No camel case.
 
 ### Quoting
 
