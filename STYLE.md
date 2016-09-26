@@ -66,6 +66,9 @@ actions:
 
 #### Quoting
 
+* Titles and descriptions fields should be double-quoted
+* Of all the types, only the array types need to be double quoted. Do not quote the others.
+
 Good:
 ```
 input:
@@ -77,6 +80,9 @@ input:
     description: "Optional timeout in seconds"
     type: integer
     default: 60
+  array:
+    description: "Array of things"
+    type: "[]string"
 output:
   bytes:
     title: "Base64 Encoded File"
