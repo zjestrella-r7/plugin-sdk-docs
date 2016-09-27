@@ -10,6 +10,7 @@
   - [Cache](#cache)
   - [Plugin Status](#plugin-status)
   - [Tests](#test)
+  - [Functions](#functions)
   - [Methods](#methods)
   - [Helper Library](#helper-library)
   - [Verifying](#verifying)
@@ -298,6 +299,38 @@ def test(self, params={}):
             raise Exception('Hash failed')
 
         return test_hashes
+```
+
+### Functions
+
+Use good programming practices such as breaking the program into smaller functions. This makes the plugins more readable and manageable.
+We recommend creating a utils.py file in the actions|triggers directory with your functions and importing it in the respective actions|triggers files.
+
+```
+$ ls actions/
+__init__.py*      filter_bytes.py*  filter_string.py* utils.py*
+$ head actions/filter_string.py
+import komand
+import logging
+import json
+import utils
+```
+
+The functions are put in the `utils.py` file
+```
+$ head actions/utils.py
+import re
+
+def csv_syntax_good(csv):
+    parsed = parse_csv_string(csv)
+    size = len(parsed[0])
+    for row in parsed:
+        if len(row) != size:
+            return False
+    return True
+
+def csv_syntax_bad(csv):
+...
 ```
 
 ### Methods
