@@ -2,6 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Writing your Python Plugin](#writing-your-plugin)
+  - [Version](#version)
   - [Plugin Generation](#plugin-generation)
   - [Required Variables](#required-variables)
   - [Parameters](#parameters)
@@ -18,6 +19,10 @@
 ## Writing your Plugin
 
 The following sections document things you need to know to develop quality plugins.
+
+### Version
+
+Python 2.7 is available in our SDK image.
 
 ### Plugin Generation
 
