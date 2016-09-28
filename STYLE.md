@@ -15,7 +15,9 @@
 
 ## Conventions
 
-The following sections document conventions you must follow while writing plugins
+The following sections document conventions you must follow while writing plugins.
+
+For Python code, where rules are not defined for in this document, follow [PEP8](https://www.python.org/dev/peps/pep-0008/)
 
 ### Plugin Names
 
@@ -177,7 +179,7 @@ Property names are defined here. These include input/output variables, actions, 
 * Names should be lowercase e.g. `timeout`
 * Names should be succinct and represent their purpose, limit of 2 words e.g. `country_code`
 * Use underscores to separate words if not succinct `metro_code`
-* Characters other alpha and underscores are not allowed
+* Characters other than alpha and underscores are not allowed
 
 ### Variable Names
 
