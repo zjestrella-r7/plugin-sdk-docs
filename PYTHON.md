@@ -14,6 +14,7 @@
   - [Functions](#functions)
   - [Methods](#methods)
   - [Helper Library](#helper-library)
+  - [Triggers](#triggers)
   - [Verifying](#verifying)
 
 ## Writing your Plugin
@@ -542,6 +543,28 @@ No file found
 {'rcode': 0, 'stderr': '', 'stdout':
 'GO.md\nPYTHON.md\nREADME.md\nSPEC.md\nball.pyc\nimgs\nold.py\nplugins.py\nplugins.pyc\nstatic.py\nstatic.pyc\n'}
 ```
+
+### Triggers
+
+Triggers, long running processes in Docker containers, continously emit events from a loop. All workflows must start by emiting an event, 
+and this is why the first step in the Workflow Builder is to select a plugin that supports Triggers.
+
+`self.send` is a method that emits the actual event, it takes a dictionary as its argument. Instead of returning a dictionary that matches the
+schema as we do it actions, for triggers we pass the dictionary matching the schema to `self.send(dict)` in a loop.
+
+If triggers were configured in the spec file, trigger code is available in the trigger files at `<plugin_name>/komand_<plugin_name>/triggers/<trigger_name>.py` 
+```
+def run(self, params={}):
+    """Run the trigger"""
+    while True:
+       # TODO: Implement this
+       self.send({})
+       time.sleep(5)
+```
+
+The code is intended to be put in the `while` loop but above the `self.send` method, right where the TODO comment lies.
+
+You can adjust the timer to suit the plugins needs. By default, it emits an event every 5 seconds.
 
 ### Verifying
 
