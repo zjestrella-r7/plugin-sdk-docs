@@ -37,7 +37,12 @@ the updated schema as well as select to keep our code.
 
 ### Example
 
-Regenerating by adding a new action, updating plugin title and version.
+Here's an example of plugin regeneration by updating the schema (`plugin.spec.yaml`) to support:
+
+* Adding a new action to lookup malware hashes
+* Change plugin title 
+* Update plugin version
+
 ```
 $ vim plugin.spec.yaml # Updated the schema
 $ make regenerate
@@ -50,6 +55,8 @@ The new skeleton changed everything.
 * Test files are deleted but need to be saved. The new skeleton doens't have them (It starts fresh, removing everything not in it).
 * Version and title name have been included in the new skeleton files
 * The new action gets its own action file
+
+Here's list of the modified files with `git status`
 ```
 $ git status
 On branch cymon
@@ -78,7 +85,7 @@ Changes not staged for commit:
   deleted:    cymon/tests/not_found_url_lookup.json
 ```
 
-Let's get the exact differences with `git diff`.
+Now, let's get the exact differences of each file with `git diff`.
 ```
 $ git diff
 ...
@@ -199,20 +206,25 @@ index 78d0677..0000000
 -}
 ```
 
-Now, let's decide what to discard from the new skeleton.
+Next, we'll need to decide what to discard and keep from the new skeleton.
 
 We'll start off by saving the test files that are marked as delete because we still want those.
+These tests were create for the existing actions we had in this plugin. Since we added a new action and did not remove
+any of the old ones in our schema change we still the old test files.
+
+The follow command checkouts the previous versions of the files before regenerating marked them as deleted.
 ```
 git checkout -- tests/*
 ```
 
-Next, let's save our existing work in the original action files since the new skeleton cleaned out our code.
+Next, let's save our existing work in the original action files since the new skeleton cleaned out the code in the `run` methods.
 ```
 git checkout -- komand_cymon/actions/address_blacklist.json
 ```
 
 Next, we'll update our main python program, keeping the version and title changes we want. We do this by entering `y` for each change we want to stage.
-If there was a change we didn't want we would have entered `n` for no.
+If there was a change we didn't want we would have entered `n` for no. If there's two changes close together where we want one and not the other we can 
+use `s` to split them into smaller pieces and then choose to commit the smaller piece.
 ```
 $ git add -p bin/komand_cymon
 diff --git a/cymon/bin/komand_cymon b/cymon/bin/komand_cymon
@@ -246,6 +258,7 @@ Stage this hunk [y,n,q,a,d,/,K,g,e,?]? y
 
 The new action file is listed in the `Untracked files:` section of `git status`.
 ```
+...
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
