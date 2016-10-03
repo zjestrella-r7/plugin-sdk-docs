@@ -4,6 +4,7 @@
 - [Regenerating a Plugin](#regenerating-a-plugin)
   - [Version](#version)
   - [Regenerate](#regenerate)
+  - [Example](#example)
 
 ## Regenerating a Plugin
 
@@ -34,8 +35,7 @@ the updated schema as well as select to keep our code.
 6. Use `git add -p` to and y|n|s (yes, no, split) to stage changes you want to keep
 7. Commit with results with `git commit`
 
-##### Example:
-
+### Example
 
 Regenerating by adding a new action, updating plugin title and version.
 ```
