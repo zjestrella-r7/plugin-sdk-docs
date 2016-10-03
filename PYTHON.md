@@ -31,8 +31,8 @@ As decribed in the [SDK Spec](SPEC.md) document, plugin skeletons are generated 
 plugin.spec.yaml`. Regenerating the skeleton by running the command **will overwrite the existing configuration** so be
 sure to save your work. This usually means copying the code you added e.g. in the `run` method to a different location. 
 
-If you decide to modify your plugin's scheme, by editing `plugin.spec.yaml`, you'll need to regenerate the plugin
-skeleton or you can manually add the JSON schema to the appropriate files. For example, say you decide to add a new
+If you decide to modify your plugin's scheme, by editing `plugin.spec.yaml`, you'll need to [regenerate the
+plugin](REGENERATE.md) skeleton or you can manually add the JSON schema to the appropriate files. For example, say you decide to add a new
 input variable called `option` to the finger action in the finger plugin. You need to edit `Input` class in the finger 
 action file `finger/actions/finger.py`.
 
