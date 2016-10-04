@@ -262,7 +262,8 @@ def run(self, params={}):
 
 Each plugin should include JSON test files in the `tests` directory.
 
-They are generated with `docker run komand/<plugin> sample <action> | jq '.' > tests/<testname>`
+They are generated with `docker run komand/<plugin> sample <action> | jq '.' > tests/<testname>`. They should be pretty
+print formatted with `jq`.
 
 #### Rules
 
