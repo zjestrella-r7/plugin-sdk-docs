@@ -142,6 +142,9 @@ value = params.get('var', 'blah')
 
 #### Triggers
 
+Testing triggers using Docker requires the use of the `--debug` option otherwise the trigger will fail due to attempts
+to post events to an http URL that's not available.
+
 #### Connections
 
 You can access the connection variables defined in `plugin.spec.yaml` while in `connection.py` using a dictionary called `params` where 

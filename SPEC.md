@@ -517,8 +517,8 @@ We'll show an example of implementing an action test below.
 
 #### `run` command 
 
-The `run` command is used for running your plugin. When developing, please make sure you run your
-plugin with the `--debug` flag so that all output is displayed to `stdin/stdout`
+The `run` command is used for running your plugin. When developing, **please make sure you run your
+plugin with the `--debug` flag** so that all output is displayed to `stdin/stdout` and so triggers can be tested.
 
 ```bash
 docker run -i --rm  acmecorp/example --debug run < action-msg.json
