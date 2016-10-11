@@ -417,7 +417,7 @@ List of current functions:
 * unlock_cache - Removes a lock file after waiting a specified amount of time and returns a boolean value
 * get_hashes_string - Returns a dictionary of hashes from a string
 * check_hashes - Returns a boolean on whether checksum was a hash of provided string. Supports MD5, SHA(1,256,512)
-* open_url - Returns a URL object from a url and optional HTTP client headers
+* open_url - Returns a URL object from a url and optional timeout, SSL verification, and HTTP client headers
 * get_url_filename - Returns a filename from url using content-disposition or file name in url, or `None` type
 * exec_command - Returns a dictionary of stdout, stderr, and return code of executed command
 
@@ -521,14 +521,21 @@ True
 '/bin/bash'
 ```
 
-* `open_url('http://blah.com')` takes a URL as a string
+* `open_url('http://blah.com')` takes a URL as a string and optional timeout as int, verify as boolean, and headers.
+A urllib2 obj is returned upon success. `None` is returned if a 304 Not modified is the response.
 ```
->>> resp = open_url('http://google.com')
->>> resp.read()
+>>> urlobj = open_url('http://google.com')
+>>> urlobj.read()
 '<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="en"><head><meta content="Se...'
->>> resp = open_url(url, Range='bytes=0-3', Authorization='aslfasdfasdfasdfasdf')
->>> resp.read()
+>>> urlobj = open_url(url, Range='bytes=0-3', Authorization='aslfasdfasdfasdfasdf')
+>>> urlobj.read()
 Auth
+>>> urlobj = open_url(url, timeout=1, User_Agent='curl/0.7.9', If_None_Match=etag)
+ERROR:root:HTTPError: 304 for http://24.151.224.211/ui/1.0.1.1038/dynamic/login.html
+>>> type(a)
+<type 'NoneType'>
+>>> urlobj = open_url(url, User_Agent='curl/0.7.9', If_Modified_Since=mod)
+ERROR:root:HTTPError: 304 for http://24.151.224.211/ui/1.0.1.1038/dynamic/login.html
 ```
 
 * `get_url_filename('http://blah.com')` takes a URL as a string, returns filename as string or None
