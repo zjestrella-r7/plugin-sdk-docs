@@ -19,7 +19,7 @@ Plugins in Komand can be built currently using Python or Go.
 
 [Regenerating a Plugin](REGENERATE.md) - Updating the plugin schema without starting over
 
-[Trouble Shooting](TROUBLESHOOTING.py) - Recommendations for diagnosing issues
+[Trouble Shooting](TROUBLESHOOTING.md) - Recommendations for diagnosing issues
 
 [Plugin Icons](ICON.md) - Finishing up the plugin
 
