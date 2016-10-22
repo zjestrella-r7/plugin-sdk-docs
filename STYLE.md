@@ -167,6 +167,13 @@ See [Git Best Practices](http://tbaggery.com/2008/04/19/a-note-about-git-commit-
 
 ### Action & Triggers Names
 
+Names are specified in the `plugin.spec.yaml` file.
+```
+actions:
+  match_string:
+      name: "Match String"
+```
+
 ##### Rules:
 
 * Each word in the name should have the first letter capitalized E.g. `Match String`
