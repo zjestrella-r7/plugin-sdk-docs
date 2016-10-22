@@ -6,6 +6,7 @@
   - [Spec](#spec)
   - [Branch Names](#branch-names)
   - [Commit Messages](#commit-messages)
+  - [Action & Trigger Names](#action-trigger-names)
   - [Property Names](#property-names)
   - [Variable Names](#variable-names)
   - [Quoting](#quoting)
@@ -163,6 +164,12 @@ See [Git Best Practices](http://tbaggery.com/2008/04/19/a-note-about-git-commit-
 ##### Bad:
 
 > add draft of plugin
+
+### Action & Triggers Names
+
+##### Rules:
+
+* Each word in the name should have the first letter capitalized E.g. `Match String`
 
 ### Property Names
 
