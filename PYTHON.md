@@ -23,7 +23,14 @@ The following sections document things you need to know to develop quality plugi
 
 ### Version
 
-Python 2.7 is available in our SDK image.
+We have Python 2.7 and 3.4 SDK images.
+
+In your plugins Dockerfile, you can change the tag to match the version of python.
+Use `python-plugin:0.2` for Python 2.7; `python-plugin:0.3` for 3.4.
+```
+$ head -n 1 Dockerfile
+FROM komand/python-plugin:0.2
+```
 
 ### Plugin Generation
 
