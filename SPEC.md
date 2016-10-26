@@ -203,6 +203,18 @@ In connection, each variable is defined in a map with its identifier.  The ident
 
 #### Triggers section
 
+Triggers are long running processes that kick off workflows. All worksflows must start with a trigger.
+This is in contrast to actions which must occur after a trigger in a workflow and are short lived processes that run and then die.
+
+The code for triggers are ran in the body of a continuous loop where the purpose is to poll for a new event. When
+the event is found, the plugin triggers a workflow with the found event as JSON by passing it to the next plugin in the
+workflow. Trigger example:
+
+1. Poll an RSS feed for new content
+2. When new content is available, pass the content as JSON to the engine
+3. Sleep for x minutes
+4. Repeat
+
 A plugin can define 0 or more triggers.  Simply create a section `triggers` and add a map 
 (defined by unique key) for each of the triggers you support.
 
