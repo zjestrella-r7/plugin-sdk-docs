@@ -11,6 +11,13 @@ Send a request to @gwen in Slack for an icon with some details:
 * If the plugin is for a *nix command or protocol, let her know that.
 * If you have any ideas for what it should look like suggest that
 
+### Icon Requirements
+
+* Size: 500px x 500px
+* Transparent background
+* File type: PNG
+* B&W icon
+
 ### Configuring
 
 Once an icon is available, complete the following steps.
