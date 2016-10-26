@@ -149,6 +149,26 @@ value = params.get('var', 'blah')
 
 #### Triggers
 
+Triggers are long running processes that poll for a new event and then send the event to the Komand engine to kick off a workflow.
+
+##### Code
+
+Trigger code should be placed in the body of the loop.
+The `self.send()` method accepts a dictionary and is the function used to pass the dictionary to the Komand Engine to kick off a workflow.
+This dictionary is then available to other plugins.
+
+```
+def run(self, params={}):
+    """Run the trigger"""
+    # send a test event
+    while True:
+       # TODO: Implement this
+       self.send({})
+       time.sleep(5)
+```
+
+##### Testing Triggers
+
 Testing triggers using Docker requires the use of the `--debug` option otherwise the trigger will fail due to attempts
 to post events to an http URL that's not available.
 
