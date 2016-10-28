@@ -9,7 +9,9 @@ Plugins in Komand can be built currently using Python or Go.
 
 ## Menu
 
-[Plugin Specification](SPEC.md) - Start with the specification
+[Plugin Development Video Series](https://www.youtube.com/playlist?list=PLzmK1wbzR51maMlHMKjQoiuYFPbWWtMV0) - Start here
+
+[Plugin Specification](SPEC.md) - Next, learn the specification
 
 [Plugin Style Guide](STYLE.md) - Style & conventions for making plugins uniform and conistent
 
