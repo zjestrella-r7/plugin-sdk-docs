@@ -44,7 +44,7 @@ First, create a file called `plugin.spec.yaml` and populate it with some data:
 ```yaml
 plugin_spec_version: v1
 name: example 
-title: Example Descriptive Title
+title: "Example Descriptive Title"
 description: "Example plugin"
 version: 0.1.0
 vendor: acmecorp 
