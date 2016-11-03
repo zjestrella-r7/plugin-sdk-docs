@@ -82,6 +82,7 @@ triggers:
         default: 15
     output:
       greeting: 
+        title: "Greeting"
         type: person 
 
 actions:
@@ -93,7 +94,9 @@ actions:
         type: string 
         description: "Name to say goodbye to"
     output:
-      message: string 
+      message:
+        title: "Message"
+        type: string 
 
 ```
 
