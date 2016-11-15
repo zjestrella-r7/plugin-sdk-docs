@@ -10,6 +10,7 @@
   - [Property Names](#property-names)
   - [Variable Names](#variable-names)
   - [Quoting](#quoting)
+  - [Punctuation](#punctuation)
   - [Logging](#logging)
   - [Todo](#todo)
   - [Tests](#tests)
