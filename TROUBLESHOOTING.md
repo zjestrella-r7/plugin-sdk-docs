@@ -72,3 +72,35 @@ Bugs can happen in the UI and cause unexpected results or block your work. To ch
 developer tools to look for errors. If found, report them to the Komand team in Slack.
 
 ![UI Loop](imgs/test_loop.png)
+
+### File Uploads
+
+Testing file uploads via API trigger can be done with the following shell function.
+
+```$ declare -f postfile
+postfile ()
+{
+    local var="$1";
+    local file="$2";
+    local url="$3";
+    local token="$4";
+    local argc="$#";
+    [[ $argc -ne 4 ]] && {
+        printf "postfile <var> <path/file> <url> <key>\n" && return 0
+    };
+    b64=$(base64 ${file});
+    json=$(echo -n '{'\""${var}"\"': '\""${b64}"\"'}');
+    echo $json | eval curl -H \"Authorization: $token\" -H \"Content-Type: application/json\" -d @- $url
+}
+```
+
+Usage, where <var> is the name of the API trigger variable for which the file will be the value (script only supports one currently).
+```
+$ postfile
+postfile <var> <path/file> <url> <key>
+```
+
+Example: 
+```
+$ postfile pcap ~/google-http.pcap http://127.0.0.1:8888/v2/workflows/6535b9ba-1930-4c56-a5e2-1904b048a4ee/events bae09ddd-a593-4113-96a6-7cedb816cf1a
+```
