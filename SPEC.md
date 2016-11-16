@@ -248,6 +248,16 @@ actions:
      output: <map of identifier -> variable outputs>
 ```
 
+#### UI Rendering
+
+The `name`, `title`, `description` etc. properties from the spec file are rendered in the UI in the following ways:
+
+##### Action & Trigger Selection
+![Action Selection](imgs/ui_action.png)
+
+##### Action & Trigger Configuration
+![Action Configuration](imgs/ui_action1.png)
+
 ### Step 2: Codegenerating the Plugin Shell
 
 Now that you have a valid plugin spec file, you can codegenerate a plugin shell.  You need to have the `komand plugin` tool installed which is installed with Komand along with other tools in (/opt/komand/).
