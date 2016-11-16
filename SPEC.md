@@ -10,6 +10,7 @@
     - [Connection section](#connection-section)
     - [Triggers section](#triggers-section)
     - [Actions section](#actions-section)
+    - [UI rendering](#ui-rendering)
   - [Step 2: Codegenerating the Plugin Shell](#step-2-codegenerating-the-plugin-shell)
   - [Step 3: Exploring Plugin Commands](#step-3-exploring-plugin-commands)
     - [`info` command](#info-command)
