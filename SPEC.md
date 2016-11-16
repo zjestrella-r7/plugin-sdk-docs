@@ -253,10 +253,10 @@ actions:
 The `name`, `title`, `description` etc. properties from the spec file are rendered in the UI in the following ways:
 
 ##### Action & Trigger Selection
-![Action Selection](imgs/ui_action.png)
+![Action Selection](imgs/ui_action1.png)
 
 ##### Action & Trigger Configuration
-![Action Configuration](imgs/ui_action1.png)
+![Action Configuration](imgs/ui_action.png)
 
 ### Step 2: Codegenerating the Plugin Shell
 
