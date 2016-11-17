@@ -5,6 +5,7 @@
   - [Version](#version)
   - [Regenerate](#regenerate)
   - [Example](#example)
+  - [Video](#video)
 
 ## Regenerating a Plugin
 
@@ -268,3 +269,9 @@ We can add it by its path `git add komand_cymon/actions/malware_lookup.py`.
 
 We repeat this process until the plugin looks the way we want then we commit it
 e.g. `git commit -m "Regenerating plugin to support new action and updated title and version'.
+
+### Video
+
+We have a video documentation this process which may be easier to grasp.
+
+[Youtube](https://www.youtube.com/watch?v=g-ll1dDQmBs&list=PLzmK1wbzR51maMlHMKjQoiuYFPbWWtMV0&index=6)
