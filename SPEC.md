@@ -121,7 +121,7 @@ At the top of the spec, you define metadata about your plugin such as the name, 
 
   * `language`: Property to define the skeleton language [python|go], used for [regeneration](REGENERATE.md)
 
-  * `help`: Property to display detailed information about the plugin and used in our Marketplace website
+  * `help`: Property to display detailed information about the plugin for the user and used in our Marketplace website
 
 #### Types section
 
