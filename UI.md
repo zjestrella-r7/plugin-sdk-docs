@@ -5,7 +5,7 @@
 
 ### Special Variables
 
-The following special variables are available in the UI and can be used in workflows.
+The following special variables, prefixed with a `$`, are available in the UI and can be used in workflows.
 
 ![UI Special Vars](imgs/ui_special_vars.png)
 
