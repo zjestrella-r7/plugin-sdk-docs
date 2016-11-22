@@ -26,3 +26,5 @@ Plugins in Komand can be built currently using Python or Go.
 [Plugin Icons](ICON.md) - Finishing up the plugin
 
 [Helper Library](helper.py) - The actual helper library
+
+[User Interface](UI.md) - User interface information
