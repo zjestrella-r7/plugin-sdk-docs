@@ -39,7 +39,22 @@ Regarding the name of the plugin as defined in the `plugin.spec.yaml` file.
 
 ### Spec
 
-In the spec file `plugins.spec.yaml`, only quote titles, names, and descriptions.
+Style information for the `plugin.spec.yml` file.
+
+* In the spec file `plugins.spec.yaml`, only quote titles, names, descriptions, and array types e.g. `"[]string"`.
+
+#### Indentation
+
+Use 2 spaces for indentation
+```
+triggers:
+  my_trigger1:
+    blah:
+      blah:
+  my_trigger2:
+    blah:
+      blah:
+```
 
 #### Line Breaks
 
