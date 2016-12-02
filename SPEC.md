@@ -238,6 +238,15 @@ triggers:
      output: <map of identifier -> variable outputs>
 ```
 
+For usability, all triggers should support a input called frequency that is passed to `time.sleep()`.
+```
+    frequency:
+      type: integer
+      description: "Poll frequency in seconds"
+      default: 300
+      required: false
+```
+
 #### Actions section
 
 A plugin can define 0 or more actions.  Simply create a section `actions` and add a map 

@@ -12,6 +12,7 @@
   - [Quoting](#quoting)
   - [Punctuation](#punctuation)
   - [Logging](#logging)
+  - [Triggers](#triggers)
   - [Todo](#todo)
   - [Tests](#tests)
 
@@ -276,6 +277,19 @@ except requests.exceptions.TooManyRedirects:
   logging.error('Requests: TooManyRedirects for %s', url)
 except requests.ConnectionError:
   logging.error('Requests: ConnectionError for %s', url)
+```
+
+### Triggers
+
+#### Inputs
+
+For usability, all triggers should support a input called frequency that is passed to `time.sleep()`.
+```
+    frequency:
+      type: integer
+      description: "Poll frequency in seconds"
+      default: 300
+      required: false
 ```
 
 ### Todo
