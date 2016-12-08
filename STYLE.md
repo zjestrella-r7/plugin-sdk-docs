@@ -193,7 +193,8 @@ actions:
 
 ##### Rules:
 
-* Each word in the name should have the first letter capitalized E.g. `Match String`
+* Each word in the `name` should have the first letter capitalized E.g. `Match String` since it's a title
+* First word in the `description` should have the first letter capitalized and not be same as `name` E.g. `Match string from text file`
 
 ### Property Names
 
