@@ -184,15 +184,24 @@ See [Git Best Practices](http://tbaggery.com/2008/04/19/a-note-about-git-commit-
 
 ### Action & Triggers Names
 
-Names are specified in the `plugin.spec.yaml` file.
+Names are specified in the `plugin.spec.yaml` file. Example of good style is below:
+
 ```
 actions:
   match_string:
       name: "Match String"
+      description: "Match string from a text file"
+  match_number:
+      name: "Match Number"
+      description: "Match number from a text file"
+  extract:
+      name: "Extract"
+      description: "Extract files from archive"
 ```
 
 ##### Rules:
 
+* `name` shouldn't be any more than one or two words. The description is intended to give the rest of the detail.
 * Each word in the `name` should have the first letter capitalized E.g. `Match String` since it's a title
 * First word in the `description` should have the first letter capitalized and not be same as `name` E.g. `Match string from text file`
 
