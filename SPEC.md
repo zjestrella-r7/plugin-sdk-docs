@@ -174,11 +174,11 @@ actions:
     description: "Forward DNS Query"
     input:
       domain:
-        type: "string"
+        type: string
         description: "Domain name to resolve"
         required: true
       query:
-        type: "string"
+        type: string
         description: "Optional query type e.g. ANY, A, MX, NS, etc."
         enum:
         - "A"
