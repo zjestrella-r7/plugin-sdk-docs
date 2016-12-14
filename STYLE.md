@@ -136,6 +136,17 @@ Git branch names should follow [Plugin Names](#plugin-names) rules. Always work 
 git branch -b plugin_name
 ```
 
+#### Tags
+
+Requirements:
+* Lower case characters
+* Numbers permitted
+* No underscores
+
+```
+tags: [ "malware", "ioc", "rat", "trojan", "remote" ]
+```
+
 ### Commit Messages
 
 Git commits should be descriptive and describe the fix or change.
@@ -226,7 +237,8 @@ Property names are defined here. These include input/output variables, actions, 
 
 ##### Python
 
-Lower case variable names and underscores are permitted. No camel case.
+Lower case variable names and underscores are permitted. CamelCase is only permitted when API's return keys in
+CamelCase and it becomes cleaner to match them, otherwise it shouldn't be used.
 
 ### Quoting
 
