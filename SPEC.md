@@ -454,14 +454,14 @@ setup.py
 The `make` task does two things: Creates a `<vendor>/<name>` container with the plugin code, and also a `<vendor>-<name>-<version>.tar.gz` package that can be uploaded via `komand plugin register` or via the plugins UI within the Komand interface.
 All of the plugins are built as Docker containers for easy packaging and running.  You can always type `make` during the process of writing your plugin to build the latest version of it.
 
-### Step 3: Exploring Plugin Commands 
+### Step 3: Running and Testing Your Plugin 
 
-Now that your plugin shell has been built, let's play around with some of the Plugin commands that come code generated with the plugin shell.
+Now that your plugin shell has been built, let's play around with some of the Plugin commands that come code generated with the plugin shell. You'll find an executable file `<name>-run` in your plugin directory that can be used for running and testing your plugin.
 
-To see what flags your plugin supports, try running:
+To see what commands your plugin executable supports, try running:
 
 ```bash
-$ docker run -i --rm  acmecorp/example --help
+$ ./example-run --help
 usage: example [-h] [--version] [--debug] {test,info,sample,run} ...
 
 Example plugin.
@@ -488,7 +488,7 @@ optional arguments:
 The info command will print what triggers/actions your plugin supports.
 
 ```bash
-$ docker run -i --rm  acmecorp/example info 
+$ ./example-run info 
 Name:        Example Descriptive Title
 Vendor:      acmecorp
 Version:     0.1.0
@@ -512,14 +512,14 @@ to supply for the `test` or `run` commands.
 To generate a sample JSON message for the `say_goodbye` action, for example, we can do this:
 
 ```bash
-$ docker run -i --rm  acmecorp/example sample say_goodbye
+$ ./example-run sample say_goodbye
 {"body": {"action": "say_goodbye", "input": {"name": ""}, "connection": {"username": "", "hostname": "", "port": 0}, "meta": {}}, "version": "v1", "type": "action_start"}%  
 ```
 
 To format the output nicely, you can use the `jq` command:
 
 ```bash
-$ docker run -i --rm  acmecorp/example sample say_goodbye | jq "."
+$ ./example-run sample say_goodbye | jq "."
 {
   "body": {
     "action": "say_goodbye",
@@ -541,7 +541,7 @@ $ docker run -i --rm  acmecorp/example sample say_goodbye | jq "."
 To save the output to a file, simply pipe the JSON to `stdout`:
 
 ```bash
-$ docker run -i --rm  acmecorp/example sample say_goodbye | jq "." > action-msg.json
+$ ./example-run sample say_goodbye | jq "." > action-msg.json
 ```
 
 You will now have a sample message in `action-msg.json` you can use to test the plugin.  Fill out any `input` or `connection` values to use this sample message.
@@ -552,7 +552,7 @@ The `test` command is used for testing your plugin. You can implement an optiona
 or trigger which will be used by the UI for testing connectivity.
 
 ```bash
-docker run -i --rm  acmecorp/example --debug test  < action-msg.json    
+./example-run --debug test  < action-msg.json    
 ```
 
 We'll show an example of implementing an action test below. 
@@ -563,7 +563,7 @@ The `run` command is used for running your plugin. When developing, **please mak
 plugin with the `--debug` flag** so that all output is displayed to `stdin/stdout` and so triggers can be tested.
 
 ```bash
-docker run -i --rm  acmecorp/example --debug run < action-msg.json
+./example-run --debug run < action-msg.json
 ```
 
 We'll show an example of implementing an action `run` command below.
@@ -679,7 +679,7 @@ $ make
 ```
 
 ```bash
-$ docker run -i --rm  acmecorp/example --debug test  < action-msg.json | jq .
+$ ./example-run --debug test  < action-msg.json | jq .
 {
   "body": {
     "status": "ok",
