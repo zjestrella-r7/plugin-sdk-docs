@@ -456,7 +456,7 @@ All of the plugins are built as Docker containers for easy packaging and running
 
 ### Step 3: Running and Testing Your Plugin 
 
-Now that your plugin shell has been built, let's play around with some of the Plugin commands that come code generated with the plugin shell. You'll find an executable file `<name>-run` in your plugin directory that can be used for running and testing your plugin.
+Now that your plugin shell has been built, let's play around with some of the Plugin commands that come code generated with the plugin shell. You'll find an executable file `<name>-run` in your plugin directory that can be used for running and testing your plugin. The `make` task runs `make runner`, which creates the `<name>-run` executable.
 
 To see what commands your plugin executable supports, try running:
 
