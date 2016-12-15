@@ -173,7 +173,7 @@ See [Git Best Practices](http://tbaggery.com/2008/04/19/a-note-about-git-commit-
 
 >  Add basic headers (to, from, subject, date) and body to IMAP MessageEvent.  Process actual events from given inbox and send to queue.
 
->  Change sleep duration to frequency and remove filter for now
+>  Change sleep duration to interval and remove filter for now
 
 >  Refactor imap plugin for expandability to additional triggers and actions. Add in validation to Connection and Trigger input.
 
@@ -305,11 +305,11 @@ except requests.ConnectionError:
 
 #### Inputs
 
-For usability, all triggers should support a input called frequency that is passed to `time.sleep()`.
+For usability, all triggers should support a input called interval that is passed to `time.sleep()`.
 ```
-    frequency:
+    interval:
       type: integer
-      description: "Poll frequency in seconds"
+      description: "Poll interval in seconds"
       default: 300
       required: false
 ```
