@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Icons &#8212; Komand Plugin SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SDK Guide" href="sdk.html" />
+    <link rel="prev" title="Commands" href="commands.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="icons">
+<h1>Icons<a class="headerlink" href="#icons" title="Permalink to this headline">¶</a></h1>
+<p>Icons are used by plugins to visually identify the plugin in the web interface.</p>
+<div class="section" id="generation">
+<h2>Generation<a class="headerlink" href="#generation" title="Permalink to this headline">¶</a></h2>
+<p>Plugins icons are created by Gwen, our designer.
+Send a request to &#64;gwen in Slack for an icon with some details:</p>
+<ul class="simple">
+<li>If the plugin is for an online service, provide a link to the website</li>
+<li>If the plugin is for a *nix command or protocol, let her know that.</li>
+<li>If you have any ideas for what it should look like suggest that</li>
+</ul>
+</div>
+<div class="section" id="icon-requirements">
+<h2>Icon Requirements<a class="headerlink" href="#icon-requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Size: 500px x 500px</li>
+<li>Transparent background</li>
+<li>File type: PNG</li>
+<li>B&amp;W icon</li>
+</ul>
+</div>
+<div class="section" id="configuring">
+<h2>Configuring<a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h2>
+<p>Once an icon is available, complete the following steps.</p>
+<ol class="arabic simple">
+<li>Place the icon in your plugins directory e.g. <code class="docutils literal"><span class="pre">plugins/myplugin</span></code> with the filename <code class="docutils literal"><span class="pre">icon.png</span></code></li>
+<li>Run <code class="docutils literal"><span class="pre">make</span> <span class="pre">icon</span></code></li>
+<li>Add the updated spec file and the icon to the repository</li>
+</ol>
+<p>Full example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">plugins</span><span class="o">/</span><span class="n">myplugin</span>
+<span class="n">mv</span> <span class="o">~/</span><span class="n">Downloads</span><span class="o">/</span><span class="n">plugin</span><span class="o">-</span><span class="n">myplugin</span><span class="o">.</span><span class="n">png</span> <span class="n">icon</span><span class="o">.</span><span class="n">png</span>
+<span class="n">make</span> <span class="n">icon</span>
+<span class="n">git</span> <span class="n">add</span> <span class="n">icon</span><span class="o">.</span><span class="n">png</span> <span class="n">plugin</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">yaml</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;add icon&quot;</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">myplugin</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Icons</a><ul>
+<li><a class="reference internal" href="#generation">Generation</a></li>
+<li><a class="reference internal" href="#icon-requirements">Icon Requirements</a></li>
+<li><a class="reference internal" href="#configuring">Configuring</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="commands.html" title="previous chapter">Commands</a></li>
+      <li>Next: <a href="sdk.html" title="next chapter">SDK Guide</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/icon.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Komand.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/icon.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

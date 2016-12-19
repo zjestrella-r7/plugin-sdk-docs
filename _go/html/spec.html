@@ -1,0 +1,740 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plugin Spec &#8212; Komand Plugin SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Style Guide" href="style.html" />
+    <link rel="prev" title="SDK Guide" href="sdk.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="plugin-spec">
+<h1>Plugin Spec<a class="headerlink" href="#plugin-spec" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>So you want to build a plugin with Komand?  You&#8217;ve come to the right place!</p>
+<p>This document will demonstrate how to correctly build a plugin using Go</p>
+<p>Plugins support any number of <code class="docutils literal"><span class="pre">triggers</span></code> or <code class="docutils literal"><span class="pre">actions</span></code>.  Plugins are defined using a <code class="docutils literal"><span class="pre">plugin.spec.yaml</span></code>, and a plugin shell can be codegen&#8217;d using <code class="docutils literal"><span class="pre">komand</span> <span class="pre">plugin</span> <span class="pre">generate</span> <span class="pre">go</span> <span class="pre">&lt;path/to/plugin.spec.yaml&gt;</span></code>.</p>
+<p>When writing plugins, it&#8217;s recommended to work directly out of the <cite>plugins</cite> repository. Locate your <cite>plugins.spec.yaml</cite> to <cite>plugins/plugin.spec.yaml</cite> and generate the skeleton from there so it fits nicely with the other plugins.</p>
+</div>
+<div class="section" id="example-creating-a-plugin">
+<h2>Example: Creating a Plugin<a class="headerlink" href="#example-creating-a-plugin" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="defining-the-plugin-specification">
+<h3>Defining the Plugin Specification<a class="headerlink" href="#defining-the-plugin-specification" title="Permalink to this headline">¶</a></h3>
+<p>First, create a file called <cite>plugin.spec.yaml</cite> and populate it with some data:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">plugin_spec_version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+<span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span> <span class="s">&quot;Example</span><span class="nv"> </span><span class="s">Descriptive</span><span class="nv"> </span><span class="s">Title&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Example</span><span class="nv"> </span><span class="s">plugin&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">vendor</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">acmecorp</span>
+<span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;example&quot;</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">icon</span><span class="p p-Indicator">:</span> <span class="s">&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAjCAYAAADWtVmPAAAABGdBTUEAALGPC/xhBQAAA6hJREFUWAnVWEloFEEUnclCFE0MBqJGjYiBiHpQRMUFJbgFxQV0Bg/xogc3cEPcEBVB8aBeFIQIogdRQXPQXBRJhKighxAIeBARFxT3lWjiNr7X/go/nV5mOjPJ9IdH/V+/6td/VdXV1R1NJBLtkUikAAizxHPCnL3OnUTadEVI9Q4SmQ60hpRAAnkfB+qt/PGc9AdqgTDJeyS7uHMBYIwzBvRVwFcg26UJCY5QeQ+NoOITsFZVVsBuBrJR/iKpI0Au80U5GLgGxGi0A5QLQKE0KIB+ipVZJG+QywI14TNhP5f8uhBh3SNgomq8AvZnOvpYGjD+MJnkKPQ9wC+VUzci9HGFNikyo2E/oKMP5A/GPAhY7zuUpcANwC6OREyjK1CKZRbyoZ8wjl4qX2GcKjWhVbBZ5ySeRNjhCTBVBVsC+wMdGRbOeqlMYg50rgpXx018ibDjT2A7EJXAI6HfBTIhvxF0L2DGKoPeCPhJUkRMkOtQSoRMHvSjAI/DdMkLBJqlVn8h7LdJBk+JCGPaB6tOYTCvnOrh7MkkpUyEyTgt/22vLD183LY7ALOVyqEH2baBiJi8bkIxD2Qu9EOA1wNp+pnyKZRpaisthR30IOkRESbE49AiI8/OXNiv6fCROvito136rfNp7+fuERE+6BvMjJoSdUOAWy4jd6B+s2lrStQVAk0ufZKpDkyEW2iNSmQr7EagjHUoefbvA/g8GXkMZbLqE4PdClRInwHQG4AgEogIk6tRCe1SI/O4rFa+2bBfApeBIkm4H/TTgBH6x4qP30VOVxDT1q1MmQgvajGV6AGHyNxyfMfkSXIDVftK1Lc49OHNdoK0582b76xUJCUi3N/LVFL8LvCSe3CWq/Y1sL95dHgH3yQhkw/9qkdbuytpIj/Qc5FKKtkL5Ef0iwNn7SO72Gw/Rcjw9nDRpZ29Oikibeg1T4LzWyDTH1xfMMYMGY+HxjnAT3yJcCvMUUHP+EVMk1+Py8mr9YnrSUTPDN/c532Cpdv9HQHnq51w0mMAVyL2vXrJI0gmXfxa7fzlA/2Yy2CORHh6WN/tKHl61Ll07q1qnpbLuTIU6IcdBu5GhPek8dKB5zmv19kgfH/FLSb/yey3JdWFCN+wlUIi6BvWFj+tJm8UqxWZnSp6J5FnqBwjJHjnaVSNsknlHU//TNwiyVlEHsIYJSSKoN8RZ7YWvAJtVCuzHvZKPjzDhUQx9PtAWGSbIjPI0pF5CdAcFgYqz92GzD8I1+y51g74CAAAAABJRU5ErkJggg==&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">enable_cache</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="l l-Scalar l-Scalar-Plain">language</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
+<span class="l l-Scalar l-Scalar-Plain">help</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">&gt;</span>
+  <span class="no">This example plugin generates a personal greeting and goodbye message.</span>
+    <span class="no">Example API [Documentation](https://blah.com/api)</span>
+
+<span class="l l-Scalar l-Scalar-Plain">types</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">person</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">first_name</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+    <span class="l l-Scalar l-Scalar-Plain">last_name</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="l l-Scalar l-Scalar-Plain">connection</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">hostname</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Enter</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">hostname&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">port</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Enter</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">port&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+  <span class="l l-Scalar l-Scalar-Plain">username</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Enter</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">username&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">triggers</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">emit_greeting</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;Trigger</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">greeting&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Triggers</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">greeting</span><span class="nv"> </span><span class="s">every</span><span class="nv"> </span><span class="s">15</span><span class="nv"> </span><span class="s">seconds</span><span class="nv"> </span><span class="s">(or</span><span class="nv"> </span><span class="s">whatever</span><span class="nv"> </span><span class="s">frequency</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">to).&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">input</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">frequency</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+        <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;How</span><span class="nv"> </span><span class="s">frequently</span><span class="nv"> </span><span class="s">(in</span><span class="nv"> </span><span class="s">seconds)</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">trigger</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">greeting&quot;</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
+    <span class="l l-Scalar l-Scalar-Plain">output</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">greeting</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span> <span class="s">&quot;Greeting&quot;</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">person</span>
+
+<span class="l l-Scalar l-Scalar-Plain">actions</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">say_goodbye</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;Say</span><span class="nv"> </span><span class="s">goodbye&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Say</span><span class="nv"> </span><span class="s">goodbye.&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">input</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+        <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Name</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">say</span><span class="nv"> </span><span class="s">goodbye</span><span class="nv"> </span><span class="s">to&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">output</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">message</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span> <span class="s">&quot;Message&quot;</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+<p>Let&#8217;s review this file in detail.</p>
+</div>
+<div class="section" id="metadata-section">
+<h3>Metadata Section<a class="headerlink" href="#metadata-section" title="Permalink to this headline">¶</a></h3>
+<p>At the top of the spec, you define metadata about your plugin such as the name, version, tags.</p>
+<p>Note: Please be sure to update the <code class="docutils literal"><span class="pre">vendor</span></code>, <code class="docutils literal"><span class="pre">name</span></code>, and <code class="docutils literal"><span class="pre">version</span></code> with the proper data. You can use letters, numbers, and underscores.  The vendor must be a unique vendor name. You can optionally provide a <code class="docutils literal"><span class="pre">title</span></code> which will be uploaded to the Komand UI.</p>
+<div class="section" id="icon">
+<h4>icon<a class="headerlink" href="#icon" title="Permalink to this headline">¶</a></h4>
+<p>You can optionally provide a base64 encoded icon to be used by your plugin</p>
+</div>
+<div class="section" id="tags">
+<h4>tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h4>
+<p>Optional tags that describe your plugin&#8217;s functionality.</p>
+</div>
+<div class="section" id="enable-cache">
+<h4>enable_cache<a class="headerlink" href="#enable-cache" title="Permalink to this headline">¶</a></h4>
+<p>Persistent storage in <code class="docutils literal"><span class="pre">/var/cache</span></code> across a plugin&#8217;s containers. Cache can be tested via <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-v</span> <span class="pre">/var/cache:/var/cache</span> <span class="pre">-i</span> <span class="pre">komand/myplugin</span> <span class="pre">--debug</span> <span class="pre">run</span> <span class="pre">&lt;</span> <span class="pre">tests/blah.json</span></code></p>
+</div>
+<div class="section" id="language">
+<h4>language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h4>
+<p>Property to define the skeleton language [python|go], used for regeneration</p>
+<p>For go plugins, you&#8217;ll always want to use <code class="docutils literal"><span class="pre">go</span></code></p>
+</div>
+<div class="section" id="help">
+<h4>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h4>
+<p>Property to display detailed information about the plugin for the user and used in our Marketplace website</p>
+</div>
+</div>
+<div class="section" id="types">
+<h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
+<p>The types section defines any custom complex type objects you have defined. It is in the format of the map which has the <code class="docutils literal"><span class="pre">type</span> <span class="pre">name</span></code> identifier as the key, and then an object definition
+that describes the property for the object.  You can use these types later in your plugin specification as types for your input/output parameters, or within your connection definition.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">types</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">&lt;type name&gt;</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">&lt;parameter</span> <span class="c1">#1 identifier&gt;:</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;choose from a valid type&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, descriptive name for the UI&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, string description&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional,  default&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, true or false, default is false. Set to true if required&gt;</span>
+  <span class=" -Error"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;parameter</span> <span class="c1">#2 identifier&gt;:</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;choose from a valid type&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, descriptive name for the UI&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, string description&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional,  default&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, true or false, default is false. Set to true if required&gt;</span>
+</pre></div>
+</div>
+<p>In the example at the beginning of this document, we defined a custom type called <code class="docutils literal"><span class="pre">person</span></code> that has two properties: <code class="docutils literal"><span class="pre">first_name</span></code> and <code class="docutils literal"><span class="pre">last_name</span></code>.</p>
+<p>The type must be selected from one of the valid types below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>boolean</td>
+<td>true or false</td>
+</tr>
+<tr class="row-odd"><td>integer</td>
+<td>integer is a signed integer</td>
+</tr>
+<tr class="row-even"><td>string</td>
+<td>string value</td>
+</tr>
+<tr class="row-odd"><td>date</td>
+<td>date string value (In RFC 3339 format) per the JSON schema</td>
+</tr>
+<tr class="row-even"><td>bytes</td>
+<td>bytes are base64 encoded byte strings</td>
+</tr>
+<tr class="row-odd"><td>object</td>
+<td>generic JSON object</td>
+</tr>
+<tr class="row-even"><td>file</td>
+<td>file object with filename (string) and base64 content bytes</td>
+</tr>
+</tbody>
+</table>
+<p>You can also specify a collection (array) type by doing <code class="docutils literal"><span class="pre">[]&lt;base</span> <span class="pre">type&gt;`</span></code> wrapped in strings, e.g.: <code class="docutils literal"><span class="pre">type:</span> <span class="pre">&quot;[]string&quot;</span></code>.  You must wrap it in quotes.</p>
+<p>These types will now be available in the <code class="docutils literal"><span class="pre">connection</span></code> sections, <code class="docutils literal"><span class="pre">trigger</span></code> input/output, and <code class="docutils literal"><span class="pre">action</span></code> input/output sections to use in addition to the base types.</p>
+<p>Enums can be used to limit and declare the possible options for an input field. For example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">actions</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">forward</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;Forward</span><span class="nv"> </span><span class="s">Lookup&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Forward</span><span class="nv"> </span><span class="s">DNS</span><span class="nv"> </span><span class="s">Query&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">input</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">domain</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+        <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Domain</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">resolve&quot;</span>
+        <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="l l-Scalar l-Scalar-Plain">query</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+        <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Optional</span><span class="nv"> </span><span class="s">query</span><span class="nv"> </span><span class="s">type</span><span class="nv"> </span><span class="s">e.g.</span><span class="nv"> </span><span class="s">ANY,</span><span class="nv"> </span><span class="s">A,</span><span class="nv"> </span><span class="s">MX,</span><span class="nv"> </span><span class="s">NS,</span><span class="nv"> </span><span class="s">etc.&quot;</span>
+        <span class="l l-Scalar l-Scalar-Plain">enum</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;A&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;AAAA&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;ANY&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;CNAME&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;MX&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;NS&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;PTR&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;SOA&quot;</span>
+</pre></div>
+</div>
+<p>The enumerated types are selectable from a drop-down box in the Komand Workflow UI.</p>
+<img alt="_images/enum.png" src="_images/enum.png" />
+</div>
+<div class="section" id="connection-section">
+<h3>Connection Section<a class="headerlink" href="#connection-section" title="Permalink to this headline">¶</a></h3>
+<p>The connection section defines the configuration variables you need for a connection. If your plugin does not require a connection, you can remove this section.</p>
+<p>If a connection does exist, the UI will render a <code class="docutils literal"><span class="pre">Configure</span> <span class="pre">Connection</span></code> page for the values in the Workflow Builder.</p>
+<p>In connection, each variable is defined in a map with its identifier.  The identifier must be unique, all lower cases, with letters/numbers/underscores permitted only.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">&lt;identifier&gt;</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;choose from a valid type&gt;</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, descriptive name for the UI&gt;</span>
+  <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, string description&gt;</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional,  default&gt;</span>
+  <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, true or false, default is false. Set to true if required to set a value&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="triggers-section">
+<h3>Triggers Section<a class="headerlink" href="#triggers-section" title="Permalink to this headline">¶</a></h3>
+<p>Triggers are long running processes that kick off workflows. All workflows must start with a trigger.
+This is in contrast to actions which must occur after a trigger in a workflow and are short lived processes that run and then die.</p>
+<p>The code for triggers are ran in the body of a continuous loop where the purpose is to poll for a new event. When
+the event is found, the plugin triggers a workflow with the found event as JSON by passing it to the next plugin in the
+workflow.</p>
+<p>Example:</p>
+<ol class="arabic simple">
+<li>Poll an RSS feed for new content</li>
+<li>When new content is available, pass the content as JSON to the engine</li>
+<li>Sleep for x seconds</li>
+<li>Repeat</li>
+</ol>
+<p>A plugin can define 0 or more triggers.  Simply create a section <code class="docutils literal"><span class="pre">triggers</span></code> and add a map
+(defined by unique key) for each of the triggers you support.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">triggers</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">&lt;unique trigger identifier&gt;</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, descriptive name for the UI&gt;</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, string description&gt;</span>
+    <span class="l l-Scalar l-Scalar-Plain">input</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, map of identifier -&gt; variable inputs&gt;</span>
+    <span class="l l-Scalar l-Scalar-Plain">output</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;map of identifier -&gt; variable outputs&gt;</span>
+</pre></div>
+</div>
+<p>For usability, all triggers should support a input called frequency that is passed to a sleep mechanism in the SDK</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">frequency</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+  <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Poll</span><span class="nv"> </span><span class="s">frequency</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">seconds&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">300</span>
+  <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="actions-section">
+<h3>Actions Section<a class="headerlink" href="#actions-section" title="Permalink to this headline">¶</a></h3>
+<p>A plugin can define 0 or more actions.  Simply create a section <code class="docutils literal"><span class="pre">actions</span></code> and add a map
+(defined by unique key) for each of the actions you support.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">actions</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">&lt;unique action identifier&gt;</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, descriptive name for the UI&gt;</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, string description&gt;</span>
+    <span class="l l-Scalar l-Scalar-Plain">input</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;optional, map of identifier -&gt; variable inputs&gt;</span>
+    <span class="l l-Scalar l-Scalar-Plain">output</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;map of identifier -&gt; variable outputs&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ui-rendering">
+<h3>UI Rendering<a class="headerlink" href="#ui-rendering" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">title</span></code>, <code class="docutils literal"><span class="pre">description</span></code> etc. properties from the spec file are rendered in the UI in the following ways:</p>
+<div class="section" id="action-trigger-selection">
+<h4>Action &amp; Trigger Selection<a class="headerlink" href="#action-trigger-selection" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/ui_action1.png" src="_images/ui_action1.png" />
+</div>
+<div class="section" id="action-trigger-configuration">
+<h4>Action &amp; Trigger Configuration<a class="headerlink" href="#action-trigger-configuration" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/ui_action.png" src="_images/ui_action.png" />
+</div>
+</div>
+</div>
+<div class="section" id="codegenerating-the-plugin-shell">
+<h2>Codegenerating the Plugin Shell<a class="headerlink" href="#codegenerating-the-plugin-shell" title="Permalink to this headline">¶</a></h2>
+<p>Now that you have a valid plugin spec file, you can codegenerate a plugin shell.  You need to have the <code class="docutils literal"><span class="pre">komand</span> <span class="pre">plugin</span></code> tool installed which is installed with Komand along with other tools in (/opt/komand/).</p>
+<p>Run it as follows:</p>
+<p><code class="docutils literal"><span class="pre">komand</span> <span class="pre">plugin</span> <span class="pre">generate</span> <span class="pre">go</span> <span class="pre">plugin.spec.yaml</span></code></p>
+<p>You may change <code class="docutils literal"><span class="pre">plugin.spec.yaml</span></code> to the path of your plugin spec. By default, it will generate the plugin a folder with the same <code class="docutils literal"><span class="pre">name</span></code> as you defined in your plugin spec yaml. You can also use the <code class="docutils literal"><span class="pre">--path</span></code>  flag to specify a custom path to generate your plugin inside of.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ komand plugin generate python plugin.spec.yaml --path /tmp/example
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/example/triggers/__init__.py
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/example/actions/say_goodbye.py
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/example/actions/__init__.py
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/example/connection.py
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/example/__init__.py
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/bin/example
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/setup.py
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/Makefile
+INFO<span class="o">[</span>0000<span class="o">]</span> Writing to file: /tmp/example/Dockerfile
+INFO<span class="o">[</span>0000<span class="o">]</span> Code generation completed! Your plugin is located at: /tmp/example
+</pre></div>
+</div>
+<p>Our plugin above was generated in <code class="docutils literal"><span class="pre">/tmp/example</span></code>.  You should be able to build it now by going to the folder and typing <code class="docutils literal"><span class="pre">make</span></code></p>
+<p>Note: The following code block is from the Python SDK, however the results should be identical for a go plugin as well</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /tmp/example
+$ make
+docker build --no-cache -t acmecorp/example:0.1.0 .
+Sending build context to Docker daemon 19.46 kB
+Step <span class="m">1</span> : FROM komand/python-plugin:0.2
+---&gt; fee6169b0518
+Step <span class="m">2</span> : ADD ./plugin.spec.yaml /plugin.spec.yaml
+---&gt; 8b7b4792a573
+Removing intermediate container ab18bbbea34d
+Step <span class="m">3</span> : ADD . /python/src
+---&gt; 7418585c7a33
+Removing intermediate container d9b14ae73f2e
+Step <span class="m">4</span> : WORKDIR /python/src
+---&gt; Running in 8417e8808f91
+---&gt; 065ecf929359
+Removing intermediate container 8417e8808f91
+Step <span class="m">5</span> : RUN make plugin
+---&gt; Running in 619761ebe080
+python setup.py install
+running install
+running bdist_egg
+running egg_info
+creating example_acmecorp_plugin.egg-info
+writing requirements to example_acmecorp_plugin.egg-info/requires.txt
+writing example_acmecorp_plugin.egg-info/PKG-INFO
+writing top-level names to example_acmecorp_plugin.egg-info/top_level.txt
+writing dependency_links to example_acmecorp_plugin.egg-info/dependency_links.txt
+writing manifest file <span class="s1">&#39;example_acmecorp_plugin.egg-info/SOURCES.txt&#39;</span>
+reading manifest file <span class="s1">&#39;example_acmecorp_plugin.egg-info/SOURCES.txt&#39;</span>
+writing manifest file <span class="s1">&#39;example_acmecorp_plugin.egg-info/SOURCES.txt&#39;</span>
+installing library code to build/bdist.linux-x86_64/egg
+running install_lib
+running build_py
+creating build
+creating build/lib
+creating build/lib/example
+copying example/connection.py -&gt; build/lib/example
+copying example/__init__.py -&gt; build/lib/example
+creating build/lib/example/actions
+copying example/actions/say_goodbye.py -&gt; build/lib/example/actions
+copying example/actions/__init__.py -&gt; build/lib/example/actions
+creating build/lib/example/triggers
+copying example/triggers/__init__.py -&gt; build/lib/example/triggers
+copying example/triggers/emit_greeting.py -&gt; build/lib/example/triggers
+creating build/bdist.linux-x86_64
+creating build/bdist.linux-x86_64/egg
+creating build/bdist.linux-x86_64/egg/example
+copying build/lib/example/connection.py -&gt; build/bdist.linux-x86_64/egg/example
+creating build/bdist.linux-x86_64/egg/example/actions
+copying build/lib/example/actions/say_goodbye.py -&gt; build/bdist.linux-x86_64/egg/example/actions
+copying build/lib/example/actions/__init__.py -&gt; build/bdist.linux-x86_64/egg/example/actions
+copying build/lib/example/__init__.py -&gt; build/bdist.linux-x86_64/egg/example
+creating build/bdist.linux-x86_64/egg/example/triggers
+copying build/lib/example/triggers/__init__.py -&gt; build/bdist.linux-x86_64/egg/example/triggers
+copying build/lib/example/triggers/emit_greeting.py -&gt; build/bdist.linux-x86_64/egg/example/triggers
+byte-compiling build/bdist.linux-x86_64/egg/example/connection.py to connection.pyc
+byte-compiling build/bdist.linux-x86_64/egg/example/actions/say_goodbye.py to say_goodbye.pyc
+byte-compiling build/bdist.linux-x86_64/egg/example/actions/__init__.py to __init__.pyc
+byte-compiling build/bdist.linux-x86_64/egg/example/__init__.py to __init__.pyc
+byte-compiling build/bdist.linux-x86_64/egg/example/triggers/__init__.py to __init__.pyc
+byte-compiling build/bdist.linux-x86_64/egg/example/triggers/emit_greeting.py to emit_greeting.pyc
+creating build/bdist.linux-x86_64/egg/EGG-INFO
+installing scripts to build/bdist.linux-x86_64/egg/EGG-INFO/scripts
+running install_scripts
+running build_scripts
+creating build/scripts-2.7
+copying and adjusting bin/example -&gt; build/scripts-2.7
+changing mode of build/scripts-2.7/example from <span class="m">644</span> to 755
+creating build/bdist.linux-x86_64/egg/EGG-INFO/scripts
+copying build/scripts-2.7/example -&gt; build/bdist.linux-x86_64/egg/EGG-INFO/scripts
+changing mode of build/bdist.linux-x86_64/egg/EGG-INFO/scripts/example to 755
+copying example_acmecorp_plugin.egg-info/PKG-INFO -&gt; build/bdist.linux-x86_64/egg/EGG-INFO
+copying example_acmecorp_plugin.egg-info/SOURCES.txt -&gt; build/bdist.linux-x86_64/egg/EGG-INFO
+copying example_acmecorp_plugin.egg-info/dependency_links.txt -&gt; build/bdist.linux-x86_64/egg/EGG-INFO
+copying example_acmecorp_plugin.egg-info/requires.txt -&gt; build/bdist.linux-x86_64/egg/EGG-INFO
+copying example_acmecorp_plugin.egg-info/top_level.txt -&gt; build/bdist.linux-x86_64/egg/EGG-INFO
+zip_safe flag not set<span class="p">;</span> analyzing archive contents...
+creating dist
+creating <span class="s1">&#39;dist/example_acmecorp_plugin-0.1-py2.7.egg&#39;</span> and adding <span class="s1">&#39;build/bdist.linux-x86_64/egg&#39;</span> to it
+removing <span class="s1">&#39;build/bdist.linux-x86_64/egg&#39;</span> <span class="o">(</span>and everything under it<span class="o">)</span>
+Processing example_acmecorp_plugin-0.1-py2.7.egg
+Copying example_acmecorp_plugin-0.1-py2.7.egg to /usr/local/lib/python2.7/site-packages
+Adding example-acmecorp-plugin 0.1 to easy-install.pth file
+Installing example script to /usr/local/bin
+
+Installed /usr/local/lib/python2.7/site-packages/example_acmecorp_plugin-0.1-py2.7.egg
+Processing dependencies <span class="k">for</span> example-acmecorp-plugin<span class="o">==</span>0.1
+Searching <span class="k">for</span> <span class="nv">komand</span><span class="o">==</span>0.1
+Best match: komand 0.1
+Processing komand-0.1-py2.7.egg
+komand 0.1 is already the active version in easy-install.pth
+
+Using /usr/local/lib/python2.7/site-packages/komand-0.1-py2.7.egg
+Searching <span class="k">for</span> <span class="nv">jsonschema</span><span class="o">==</span>2.3.0
+Best match: jsonschema 2.3.0
+Adding jsonschema 2.3.0 to easy-install.pth file
+
+Using /usr/local/lib/python2.7/site-packages
+Searching <span class="k">for</span> python-jsonschema-objects<span class="o">==</span>0.0.22.post1
+Best match: python-jsonschema-objects 0.0.22.post1
+Adding python-jsonschema-objects 0.0.22.post1 to easy-install.pth file
+
+Using /usr/local/lib/python2.7/site-packages
+Searching <span class="k">for</span> <span class="nv">requests</span><span class="o">==</span>2.9.0
+Best match: requests 2.9.0
+Adding requests 2.9.0 to easy-install.pth file
+
+Using /usr/local/lib/python2.7/site-packages
+Searching <span class="k">for</span> <span class="nv">pandocfilters</span><span class="o">==</span>1.2
+Best match: pandocfilters 1.2
+Adding pandocfilters 1.2 to easy-install.pth file
+
+Using /usr/local/lib/python2.7/site-packages
+Searching <span class="k">for</span> <span class="nv">six</span><span class="o">==</span>1.10.0
+Best match: six 1.10.0
+Adding six 1.10.0 to easy-install.pth file
+
+Using /usr/local/lib/python2.7/site-packages
+Searching <span class="k">for</span> <span class="nv">Markdown</span><span class="o">==</span>2.4
+Best match: Markdown 2.4
+Adding Markdown 2.4 to easy-install.pth file
+
+Using /usr/local/lib/python2.7/site-packages
+Searching <span class="k">for</span> <span class="nv">inflection</span><span class="o">==</span>0.2.0
+Best match: inflection 0.2.0
+Adding inflection 0.2.0 to easy-install.pth file
+
+Using /usr/local/lib/python2.7/site-packages
+Finished processing dependencies <span class="k">for</span> example-acmecorp-plugin<span class="o">==</span>0.1
+---&gt; 3310b32954ac
+Removing intermediate container 619761ebe080
+Step <span class="m">6</span> : ENTRYPOINT /usr/local/bin/example
+---&gt; Running in a09ee1dd3bde
+---&gt; 7f38a94b21ad
+Removing intermediate container a09ee1dd3bde
+Successfully built 7f38a94b21ad
+docker tag -f acmecorp/example:0.1.0 acmecorp/example:latest
+Warning: <span class="s1">&#39;-f&#39;</span> is deprecated, it will be removed soon. See usage.
+rm -rf acmecorp-example-0.1.0.tar.gz
+tar -cvzf acmecorp-example-0.1.0.tar.gz  --exclude<span class="o">=</span>acmecorp-example-0.1.0.tar.gz  *
+Dockerfile
+Makefile
+bin/
+bin/example
+example/
+example/triggers/
+example/triggers/__init__.py
+example/triggers/emit_greeting.py
+example/connection.py
+example/actions/
+example/actions/__init__.py
+example/actions/say_goodbye.py
+example/__init__.py
+plugin.spec.yaml
+setup.py
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">make</span></code> task does two things: Creates a <code class="docutils literal"><span class="pre">&lt;vendor&gt;/&lt;name&gt;</span></code> container with the plugin code, and also a <code class="docutils literal"><span class="pre">&lt;vendor&gt;-&lt;name&gt;-&lt;version&gt;.tar.gz</span></code> package that can be uploaded via <code class="docutils literal"><span class="pre">komand</span> <span class="pre">plugin</span> <span class="pre">register</span></code> or via the plugins UI within the Komand interface.
+All of the plugins are built as Docker containers for easy packaging and running.  You can always type <code class="docutils literal"><span class="pre">make</span></code> during the process of writing your plugin to build the latest version of it.</p>
+</div>
+<div class="section" id="running-and-testing-your-plugin">
+<h2>Running and Testing Your Plugin<a class="headerlink" href="#running-and-testing-your-plugin" title="Permalink to this headline">¶</a></h2>
+<p>Now that your plugin shell has been built, let&#8217;s play around with some of the Plugin commands that come code generated with the plugin shell. You&#8217;ll find an executable file <code class="docutils literal"><span class="pre">&lt;name&gt;-run</span></code> in your plugin directory that can be used for running and testing your plugin. The <code class="docutils literal"><span class="pre">make</span></code> task runs <code class="docutils literal"><span class="pre">make</span> <span class="pre">runner</span></code>, which creates the <code class="docutils literal"><span class="pre">&lt;name&gt;-run</span></code> executable.</p>
+<p>To see what commands your plugin executable supports, try running:</p>
+<div class="section" id="info-command">
+<h3>info command<a class="headerlink" href="#info-command" title="Permalink to this headline">¶</a></h3>
+<p>The info command will print what triggers/actions your plugin supports.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./example-run info
+Name:        Example Descriptive Title
+Vendor:      acmecorp
+Version:     0.1.0
+Description: Example plugin.
+
+Triggers <span class="o">(</span>1<span class="o">)</span>:
+└── emit_greeting <span class="o">(</span>Triggers a greeting every <span class="m">15</span> seconds <span class="o">(</span>or whatever frequency is <span class="nb">set</span> to<span class="o">)</span>.<span class="o">)</span>
+
+Actions <span class="o">(</span>1<span class="o">)</span>:
+└── say_goodbye <span class="o">(</span>Say goodbye.<span class="o">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sample-command">
+<h3>sample command<a class="headerlink" href="#sample-command" title="Permalink to this headline">¶</a></h3>
+<p>The Komand system communicates with all of its plugins using JSON.  All of the plugin <code class="docutils literal"><span class="pre">test</span></code> or <code class="docutils literal"><span class="pre">run</span></code> commands require a JSON message on <code class="docutils literal"><span class="pre">stdin</span></code> that provides the JSON
+input parameters and connection information.  The plugin can generate a <code class="docutils literal"><span class="pre">sample</span></code> of this message for you!</p>
+<p>The sample command takes the <code class="docutils literal"><span class="pre">identifier</span></code> of your trigger or action as an argument, and generates a sample message
+to supply for the <code class="docutils literal"><span class="pre">test</span></code> or <code class="docutils literal"><span class="pre">run</span></code> commands.</p>
+<p>To generate a sample JSON message for the <code class="docutils literal"><span class="pre">say_goodbye</span></code> action, for example, we can do this:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./example-run sample say_goodbye
+<span class="o">{</span><span class="s2">&quot;body&quot;</span>: <span class="o">{</span><span class="s2">&quot;action&quot;</span>: <span class="s2">&quot;say_goodbye&quot;</span>, <span class="s2">&quot;input&quot;</span>: <span class="o">{</span><span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;&quot;</span><span class="o">}</span>, <span class="s2">&quot;connection&quot;</span>: <span class="o">{</span><span class="s2">&quot;username&quot;</span>: <span class="s2">&quot;&quot;</span>, <span class="s2">&quot;hostname&quot;</span>: <span class="s2">&quot;&quot;</span>, <span class="s2">&quot;port&quot;</span>: 0<span class="o">}</span>, <span class="s2">&quot;meta&quot;</span>: <span class="o">{}}</span>, <span class="s2">&quot;version&quot;</span>: <span class="s2">&quot;v1&quot;</span>, <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;action_start&quot;</span><span class="o">}</span>%
+</pre></div>
+</div>
+<p>To format the output nicely, you can use the <code class="docutils literal"><span class="pre">jq</span></code> command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./example-run sample say_goodbye <span class="p">|</span> jq <span class="s2">&quot;.&quot;</span>
+<span class="o">{</span>
+  <span class="s2">&quot;body&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;action&quot;</span>: <span class="s2">&quot;say_goodbye&quot;</span>,
+    <span class="s2">&quot;input&quot;</span>: <span class="o">{</span>
+      <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;connection&quot;</span>: <span class="o">{</span>
+      <span class="s2">&quot;username&quot;</span>: <span class="s2">&quot;&quot;</span>,
+      <span class="s2">&quot;hostname&quot;</span>: <span class="s2">&quot;&quot;</span>,
+      <span class="s2">&quot;port&quot;</span>: 0
+    <span class="o">}</span>,
+    <span class="s2">&quot;meta&quot;</span>: <span class="o">{}</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;version&quot;</span>: <span class="s2">&quot;v1&quot;</span>,
+  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;action_start&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>To save the output to a file, simply pipe the JSON to <code class="docutils literal"><span class="pre">stdout</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="sb">``</span>$ ./example-run sample say_goodbye <span class="p">|</span> jq <span class="s2">&quot;.&quot;</span> &gt; action-msg.json<span class="sb">``</span>
+</pre></div>
+</div>
+<p>You will now have a sample message in <code class="docutils literal"><span class="pre">action-msg.json</span></code> you can use to test the plugin.  Fill out any <code class="docutils literal"><span class="pre">input</span></code> or <code class="docutils literal"><span class="pre">connection</span></code> values to use this sample message.</p>
+</div>
+<div class="section" id="test-command">
+<h3>test command<a class="headerlink" href="#test-command" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">test</span></code> command is used for testing your plugin. You can implement an optional test method in your action
+or trigger which will be used by the UI for testing connectivity.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="sb">``</span>./example-run --debug <span class="nb">test</span>  &lt; action-msg.json<span class="sb">``</span>
+</pre></div>
+</div>
+<p>We&#8217;ll show an example of implementing an action test below.</p>
+</div>
+<div class="section" id="run-command">
+<h3>run command<a class="headerlink" href="#run-command" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">run</span></code> command is used for running your plugin. When developing, please make sure you run your
+plugin with the <code class="docutils literal"><span class="pre">--debug</span></code> flag so that all output is displayed to <code class="docutils literal"><span class="pre">stdin/stdout</span></code> and so triggers can be tested.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>./example-run --debug run &lt; action-msg.json
+</pre></div>
+</div>
+<p>We&#8217;ll show an example of implementing an action <code class="docutils literal"><span class="pre">run</span></code> command below.</p>
+</div>
+</div>
+<div class="section" id="implementing-an-action">
+<h2>Implementing an Action<a class="headerlink" href="#implementing-an-action" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a plugin shell code generated for us, let us implement our <code class="docutils literal"><span class="pre">say_goodbye</span></code> action!</p>
+<p>First, let&#8217;s look at the structure of our plugin:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>TODO Go structure
+</pre></div>
+</div>
+<p>You can see that there are two folders <code class="docutils literal"><span class="pre">example/actions</span></code> and <code class="docutils literal"><span class="pre">example/triggers</span></code>.  Each of the triggers or actions we defined will be in its own unique file here.</p>
+<p>Let&#8217;s look at <code class="docutils literal"><span class="pre">./example/actions/say_goodbye</span></code>:</p>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="nx">TODO</span> <span class="k">go</span>
+</pre></div>
+</div>
+<p>By modifying the <cite>TODO:</cite> sections, we can return some data for our <code class="docutils literal"><span class="pre">test</span></code> and <code class="docutils literal"><span class="pre">run</span></code> commands.</p>
+<p>Note: the input parameters are passed in as a dict, and the <code class="docutils literal"><span class="pre">output</span></code> parameters for an action are returned as a result.</p>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="nx">TOOD</span> <span class="k">go</span>
+</pre></div>
+</div>
+<p>Next, let&#8217;s modify <code class="docutils literal"><span class="pre">action-msg.json</span></code> to set up an <code class="docutils literal"><span class="pre">name</span></code> to input to our action.</p>
+<p>Open up <code class="docutils literal"><span class="pre">action-msg.json</span></code> in your favorite editor, and set the input <code class="docutils literal"><span class="pre">name</span></code> value:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;say_goodbye&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;input&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Pikachu&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;connection&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;v1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;action_start&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let&#8217;s run <code class="docutils literal"><span class="pre">make</span></code> again to rebuild the plugin, then run our test.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ make
+...
+$ ./example-run --debug <span class="nb">test</span>  &lt; action-msg.json <span class="p">|</span> jq .
+<span class="o">{</span>
+  <span class="s2">&quot;body&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;status&quot;</span>: <span class="s2">&quot;ok&quot;</span>,
+    <span class="s2">&quot;output&quot;</span>: <span class="o">{</span>
+      <span class="s2">&quot;message&quot;</span>: <span class="s2">&quot;Hello there Pikachu&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;meta&quot;</span>: <span class="o">{}</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;version&quot;</span>: <span class="s2">&quot;v1&quot;</span>,
+  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;action_event&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Tada! You should now see that the <code class="docutils literal"><span class="pre">output</span></code> field is populated with the data you returned.</p>
+</div>
+<div class="section" id="installing-your-plugin-for-use-in-komand">
+<h2>Installing your plugin for use in Komand<a class="headerlink" href="#installing-your-plugin-for-use-in-komand" title="Permalink to this headline">¶</a></h2>
+<p>Once you&#8217;ve built your plugin and implement triggers/actions, you have 2 ways you can install into Komand.</p>
+<div class="section" id="install-package-via-komand-line">
+<h3>Install package via Komand line<a class="headerlink" href="#install-package-via-komand-line" title="Permalink to this headline">¶</a></h3>
+<p>Every time you run <cite>make</cite>, the plugin will build a package of itself: <cite>&lt;vendor&gt;-&lt;name&gt;-&lt;version&gt;.tar.gz</cite>.</p>
+<p>You can install this using the <cite>komand plugin register &lt;packagename.tar.gz&gt;</cite> tool:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo -u komand komand plugin register acmecorp-example-0.1.0.tar.gz
+Loading plugin from path: /tmp/example/acmecorp-example-0.1.0.tar.gz
+INFO<span class="o">[</span>0000<span class="o">]</span> CREATING plugin                               <span class="nv">name</span><span class="o">=</span>example <span class="nv">version</span><span class="o">=</span>0.1.0
+INFO<span class="o">[</span>0000<span class="o">]</span> UPDATING_ACTIONS                              <span class="nv">ID</span><span class="o">=</span><span class="m">14</span> <span class="nv">name</span><span class="o">=</span>example <span class="nv">numActions</span><span class="o">=</span><span class="m">1</span> <span class="nv">version</span><span class="o">=</span>0.1.0
+INFO<span class="o">[</span>0000<span class="o">]</span> UPDATING_TRIGGERS                             <span class="nv">ID</span><span class="o">=</span><span class="m">14</span> <span class="nv">name</span><span class="o">=</span>example <span class="nv">numTriggers</span><span class="o">=</span><span class="m">1</span> <span class="nv">version</span><span class="o">=</span>0.1.0
+INFO<span class="o">[</span>0000<span class="o">]</span> Plugin example import succeeded. You should now see this in the plugin library or when you run <span class="sb">`</span>komand plugin list<span class="sb">`</span>.
+INFO<span class="o">[</span>0000<span class="o">]</span> Building plugin image acmecorp/example:0.1.0
+</pre></div>
+</div>
+<p>Re running this will overwrite the old plugin, so you can do it multiple times as you are developing.</p>
+</div>
+<div class="section" id="install-package-via-ui">
+<h3>Install package via UI<a class="headerlink" href="#install-package-via-ui" title="Permalink to this headline">¶</a></h3>
+<p>You can also upload the <code class="docutils literal"><span class="pre">.tar.gz</span></code> package via the Komand UI in the <code class="docutils literal"><span class="pre">setttings/plugins</span></code> section. Look for the <code class="docutils literal"><span class="pre">Import</span> <span class="pre">a</span> <span class="pre">Plugin</span></code> button.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Plugin Spec</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#example-creating-a-plugin">Example: Creating a Plugin</a><ul>
+<li><a class="reference internal" href="#defining-the-plugin-specification">Defining the Plugin Specification</a></li>
+<li><a class="reference internal" href="#metadata-section">Metadata Section</a><ul>
+<li><a class="reference internal" href="#icon">icon</a></li>
+<li><a class="reference internal" href="#tags">tags</a></li>
+<li><a class="reference internal" href="#enable-cache">enable_cache</a></li>
+<li><a class="reference internal" href="#language">language</a></li>
+<li><a class="reference internal" href="#help">help</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#types">Types</a></li>
+<li><a class="reference internal" href="#connection-section">Connection Section</a></li>
+<li><a class="reference internal" href="#triggers-section">Triggers Section</a></li>
+<li><a class="reference internal" href="#actions-section">Actions Section</a></li>
+<li><a class="reference internal" href="#ui-rendering">UI Rendering</a><ul>
+<li><a class="reference internal" href="#action-trigger-selection">Action &amp; Trigger Selection</a></li>
+<li><a class="reference internal" href="#action-trigger-configuration">Action &amp; Trigger Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#codegenerating-the-plugin-shell">Codegenerating the Plugin Shell</a></li>
+<li><a class="reference internal" href="#running-and-testing-your-plugin">Running and Testing Your Plugin</a><ul>
+<li><a class="reference internal" href="#info-command">info command</a></li>
+<li><a class="reference internal" href="#sample-command">sample command</a></li>
+<li><a class="reference internal" href="#test-command">test command</a></li>
+<li><a class="reference internal" href="#run-command">run command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementing-an-action">Implementing an Action</a></li>
+<li><a class="reference internal" href="#installing-your-plugin-for-use-in-komand">Installing your plugin for use in Komand</a><ul>
+<li><a class="reference internal" href="#install-package-via-komand-line">Install package via Komand line</a></li>
+<li><a class="reference internal" href="#install-package-via-ui">Install package via UI</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="sdk.html" title="previous chapter">SDK Guide</a></li>
+      <li>Next: <a href="style.html" title="next chapter">Style Guide</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/spec.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Komand.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/spec.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

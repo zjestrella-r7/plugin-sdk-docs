@@ -1,0 +1,4 @@
+type Thing struct {
+  User     string `json:"user"`
+  Options  string `json:"options"`
+}

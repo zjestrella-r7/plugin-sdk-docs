@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Troubleshooting &#8212; Komand Plugin SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Interface" href="ui.html" />
+    <link rel="prev" title="Style Guide" href="style.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ui">
+<h3>UI<a class="headerlink" href="#ui" title="Permalink to this headline">¶</a></h3>
+<p>Errors and debug information can be found in the UI on the job page by viewing the Error and Log tabs.</p>
+<img alt="_images/decode_error.png" src="_images/decode_error.png" />
+</div>
+<div class="section" id="logs">
+<h3>Logs<a class="headerlink" href="#logs" title="Permalink to this headline">¶</a></h3>
+<p>The engine and web services contain logs that may help diagnose issues.</p>
+<p>Enable debug logging to get the most out of them by adding the following line to <code class="docutils literal"><span class="pre">/opt/komand/etc/web.conf</span></code> and <code class="docutils literal"><span class="pre">/opt/komand/etc/engine.conf</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">KOMAND_LOG_LEVEL</span><span class="o">=</span><span class="n">debug</span>
+</pre></div>
+</div>
+<p>Then restart the services:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">restart</span> <span class="n">komand</span><span class="o">-</span><span class="n">engine</span>
+<span class="n">systemctl</span> <span class="n">restart</span> <span class="n">komand</span><span class="o">-</span><span class="n">web</span>
+</pre></div>
+</div>
+<p>Now, investigate the logs:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tail</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">komand</span><span class="o">/</span><span class="n">web</span><span class="o">.</span><span class="n">log</span>
+<span class="n">tail</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">komand</span><span class="o">/</span><span class="n">engine</span><span class="o">.</span><span class="n">log</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="containers">
+<h3>Containers<a class="headerlink" href="#containers" title="Permalink to this headline">¶</a></h3>
+<p>You can view logs of running containers by interacting with Docker. This is helpful in cases where no jobs are created
+by a trigger in the UI.</p>
+<p>Obtain container ID:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@localhost</span> <span class="o">~</span><span class="p">]</span><span class="c1"># docker ps</span>
+<span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>                  <span class="n">COMMAND</span>                  <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>
+<span class="n">NAMES</span>
+<span class="n">ba7cdcd752fb</span>        <span class="n">komand</span><span class="o">/</span><span class="n">twitter</span><span class="p">:</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">0</span>   <span class="s2">&quot;/usr/local/bin/koman&quot;</span>   <span class="mi">12</span> <span class="n">minutes</span> <span class="n">ago</span>      <span class="n">Up</span> <span class="mi">12</span> <span class="n">minutes</span>
+</pre></div>
+</div>
+<p>View logs in realtime from running container by id:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>[root@localhost ~]# docker logs -f ba7cdcd752fb
+INFO:root:Using dispatcher config: {u&#39;url&#39;:
+u&#39;http://127.0.0.1:8000/v2/workflows/0a64d852-8384-43f3-b29e-1be835b3b018/events?internal=1&amp;api_key=2981d3fb-d7ca-47d7-9a05-ceb2123271d2&#39;}
+INFO:root:Connect: Creating Twitter client.
+INFO:root:Right about to create API client
+INFO:root:API Client created
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): api.twitter.com
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): api.twitter.com
+INFO:root:Connect: Connected! ID: 778783652834582529, Username: Rusty Shackleford, ScreenName: DoctorPeepers12
+INFO:root:OpenCacheFile: /var/cache/triggers_twitter_messages exists, returning it
+INFO:root:Run: Iterating main loop
+INFO:root:OpenCacheFile: /var/cache/triggers_twitter_messages exists, returning it
+INFO:root:Run: Cached id is 787384615166152708.
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): api.twitter.com
+INFO:root:Get Messages: Got 0 messages.
+INFO:root:Get Messages: Next sleep duration set to 360 seconds.
+INFO:root:Run: No new messages. Sleeping 360 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>UI<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Bugs can happen in the UI and cause unexpected results or block your work. To check for bugs, open your browser&#8217;s
+developer tools to look for errors. If found, report them to the Komand team in Slack.</p>
+<img alt="_images/test_loop.png" src="_images/test_loop.png" />
+</div>
+<div class="section" id="file-uploads">
+<h2>File Uploads<a class="headerlink" href="#file-uploads" title="Permalink to this headline">¶</a></h2>
+<p>Testing file uploads via API trigger can be done with the following shell function:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ declare -f postfile
+postfile ()
+{
+    local var=&quot;$1&quot;;
+    local file=&quot;$2&quot;;
+    local url=&quot;$3&quot;;
+    local token=&quot;$4&quot;;
+    local argc=&quot;$#&quot;;
+    [[ $argc -ne 4 ]] &amp;&amp; {
+        printf &quot;postfile &lt;var&gt; &lt;path/file&gt; &lt;url&gt; &lt;key&gt;\n&quot; &amp;&amp; return 0
+    };
+    b64=$(base64 ${file});
+    json=$(echo -n &#39;{&#39;\&quot;&quot;${var}&quot;\&quot;&#39;: &#39;\&quot;&quot;${b64}&quot;\&quot;&#39;}&#39;);
+    echo $json | eval curl -H \&quot;Authorization: $token\&quot; -H \&quot;Content-Type: application/json\&quot; -d @- $url
+}
+</pre></div>
+</div>
+<p>Usage, where &lt;var&gt; is the name of the API trigger variable for which the file will be the value (script only supports one currently):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ postfile
+postfile &lt;var&gt; &lt;path/file&gt; &lt;url&gt; &lt;key&gt;
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ postfile pcap ~/google-http.pcap http://127.0.0.1:8888/v2/workflows/6535b9ba-1930-4c56-a5e2-1904b048a4ee/events bae09ddd-a593-4113-96a6-7cedb816cf1a
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#plugins">Plugins</a><ul>
+<li><a class="reference internal" href="#ui">UI</a></li>
+<li><a class="reference internal" href="#logs">Logs</a></li>
+<li><a class="reference internal" href="#containers">Containers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">UI</a></li>
+<li><a class="reference internal" href="#file-uploads">File Uploads</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="style.html" title="previous chapter">Style Guide</a></li>
+      <li>Next: <a href="ui.html" title="next chapter">User Interface</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/troubleshooting.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Komand.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/troubleshooting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,7 @@
+host:
+  type: "string"
+  description: "Finger server host"
+  required: true
+output:
+found:
+title: Found Status

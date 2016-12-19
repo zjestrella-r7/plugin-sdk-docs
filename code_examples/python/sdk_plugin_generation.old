@@ -1,0 +1,8 @@
+class FingerInput(komand.Input):
+    "user": {
+      "type": "string",
+      "title": "User",
+      "description": "User to finger"
+    }
+  },
+  "required": [

@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Style Guide &#8212; Komand Plugin SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="Plugin Spec" href="spec.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="style-guide">
+<h1>Style Guide<a class="headerlink" href="#style-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="conventions">
+<h2>Conventions<a class="headerlink" href="#conventions" title="Permalink to this headline">¶</a></h2>
+<p>The following sections document conventions you must follow while writing plugins.</p>
+<p>Where rules are not defined in this document, follow <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a></p>
+</div>
+<div class="section" id="plugin-names">
+<h2>Plugin Names<a class="headerlink" href="#plugin-names" title="Permalink to this headline">¶</a></h2>
+<p>Regarding the name of the plugin as defined in the <cite>plugin.spec.yaml</cite> file.</p>
+<p><code class="docutils literal"><span class="pre">name:</span> <span class="pre">plugin_name</span></code></p>
+<div class="section" id="rules">
+<h3>Rules<a class="headerlink" href="#rules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Names should be lowercase e.g. <code class="docutils literal"><span class="pre">myplugin</span></code></li>
+<li>Names should be succinct and represent their purpose or servicename e.g. ServiceNow should be <code class="docutils literal"><span class="pre">servicenow</span></code></li>
+<li>Use underscores to separate words if not a company or service name e.g. <code class="docutils literal"><span class="pre">get_url</span></code></li>
+<li>Where service and website is same, if domain is unique enough avoid top-level domain e.g. freegeoip.net should be <code class="docutils literal"><span class="pre">freegeoip</span></code></li>
+<li>Where service and website is same, if domain is not unique add top-level domain e.g. ifconfig is unix tool, web service ifconfig.co should be <code class="docutils literal"><span class="pre">ifconfig_co</span></code></li>
+<li>Numbers are valid in plugin names e.g. <code class="docutils literal"><span class="pre">geolite2</span></code></li>
+<li>Characters other than alpha-numeric and underscore are not allowed</li>
+</ul>
+</div>
+</div>
+<div class="section" id="spec">
+<h2>Spec<a class="headerlink" href="#spec" title="Permalink to this headline">¶</a></h2>
+<p>Style information for the <code class="docutils literal"><span class="pre">plugin.spec.yml</span></code> file.</p>
+<ul class="simple">
+<li>In the spec file <code class="docutils literal"><span class="pre">plugins.spec.yaml</span></code>, only quote titles, names, descriptions, and array types e.g. <code class="docutils literal"><span class="pre">&quot;[]string&quot;</span></code>.</li>
+</ul>
+<div class="section" id="indentation">
+<h3>Indentation<a class="headerlink" href="#indentation" title="Permalink to this headline">¶</a></h3>
+<p>Use 2 spaces for indentation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">triggers</span><span class="p">:</span>
+  <span class="n">my_trigger1</span><span class="p">:</span>
+    <span class="n">blah</span><span class="p">:</span>
+      <span class="n">blah</span><span class="p">:</span>
+  <span class="n">my_trigger2</span><span class="p">:</span>
+    <span class="n">blah</span><span class="p">:</span>
+      <span class="n">blah</span><span class="p">:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="line-breaks">
+<h3>Line Breaks<a class="headerlink" href="#line-breaks" title="Permalink to this headline">¶</a></h3>
+<p>Schema sections: metadata, triggers, action, connections, should be separated by a line break.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">tags</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;blah&quot;</span> <span class="p">]</span>
+<span class="n">icon</span><span class="p">:</span> <span class="s2">&quot;blah&quot;</span>
+
+<span class="n">triggers</span><span class="p">:</span>
+  <span class="n">my_trigger1</span><span class="p">:</span>
+    <span class="n">blah</span><span class="p">:</span>
+      <span class="n">blah</span><span class="p">:</span>
+  <span class="n">my_trigger2</span><span class="p">:</span>
+    <span class="n">blah</span><span class="p">:</span>
+      <span class="n">blah</span><span class="p">:</span>
+
+  <span class="n">actions</span><span class="p">:</span>
+    <span class="n">my_action1</span><span class="p">:</span>
+      <span class="n">blah</span><span class="p">:</span>
+        <span class="n">blah</span><span class="p">:</span>
+    <span class="n">my_action2</span><span class="p">:</span>
+      <span class="n">blah</span><span class="p">:</span>
+        <span class="n">blah</span><span class="p">:</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="quoting">
+<h2>Quoting<a class="headerlink" href="#quoting" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Titles and descriptions fields should be double-quoted</li>
+<li>Of all the types, only the array types need to be double quoted. Do not quote the others.</li>
+</ul>
+<p>Good:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">input</span><span class="p">:</span>
+  <span class="n">url</span><span class="p">:</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">string</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;URL to Download&quot;</span>
+    <span class="n">required</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">timeout</span><span class="p">:</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Optional timeout in seconds&quot;</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">integer</span>
+    <span class="n">default</span><span class="p">:</span> <span class="mi">60</span>
+  <span class="n">array</span><span class="p">:</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Array of things&quot;</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;[]string&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="nb">bytes</span><span class="p">:</span>
+    <span class="n">title</span><span class="p">:</span> <span class="s2">&quot;Base64 Encoded File&quot;</span>
+</pre></div>
+</div>
+<p>Bad:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">input</span><span class="p">:</span>
+  <span class="n">url</span><span class="p">:</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span> <span class="c1"># This shouldn&#39;t be quoted</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;URL to Download&quot;</span>
+    <span class="n">required</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span> <span class="c1"># This shouldn&#39;t be quoted</span>
+  <span class="n">timeout</span><span class="p">:</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span> <span class="c1"># This shouldn&#39;t be quoted</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Optional timeout in seconds&quot;</span>
+    <span class="n">default</span><span class="p">:</span> <span class="s2">&quot;60&quot;</span> <span class="c1"># This shouldn&#39;t be quoted</span>
+<span class="n">output</span><span class="p">:</span>
+  <span class="nb">bytes</span><span class="p">:</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Base64</span> <span class="n">Encoded</span> <span class="n">File</span> <span class="c1"># This should be quoted</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="punctuation">
+<h2>Punctuation<a class="headerlink" href="#punctuation" title="Permalink to this headline">¶</a></h2>
+<p>Do not add end of sentence punctuation to <code class="docutils literal"><span class="pre">titles</span></code>, <code class="docutils literal"><span class="pre">names</span></code>, and <code class="docutils literal"><span class="pre">descriptions</span></code>. Other fields should not have them anyway.</p>
+</div>
+<div class="section" id="branch-names">
+<h2>Branch Names<a class="headerlink" href="#branch-names" title="Permalink to this headline">¶</a></h2>
+<p>Git branch names should follow rules for Plugin Names. Always work from a topic branch of the same name as the plugin.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">b</span> <span class="n">plugin_name</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tags">
+<h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
+<p>Requirements:
+* Lower case characters
+* Numbers permitted
+* No underscores</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>tags: [ &quot;malware&quot;, &quot;ioc&quot;, &quot;rat&quot;, &quot;trojan&quot;, &quot;remote&quot; ]
+</pre></div>
+</div>
+</div>
+<div class="section" id="commit-messages">
+<h2>Commit Messages<a class="headerlink" href="#commit-messages" title="Permalink to this headline">¶</a></h2>
+<p>Git commits should be descriptive and describe the fix or change.</p>
+<div class="section" id="id1">
+<h3>Rules<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Use the imperative e.g. <code class="docutils literal"><span class="pre">Fix</span></code> instead of <code class="docutils literal"><span class="pre">Fixed</span></code> or <code class="docutils literal"><span class="pre">Fixes</span></code></li>
+<li>First letter of description should be capitalized</li>
+<li>Use form: <code class="docutils literal"><span class="pre">&lt;description&gt;</span></code></li>
+</ul>
+<p>See <a class="reference external" href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">Git Best Practices</a></p>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="good">
+<h4>Good<a class="headerlink" href="#good" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none"><div class="highlight"><pre><span></span>&gt;  Add Phishtank Plugin (#47)
+
+&gt;  Update README example to match imap spec.
+
+&gt;  Create README.md
+
+&gt;  Remove Imap prefix to all names since imap is the package.
+
+&gt;  Add basic headers (to, from, subject, date) and body to IMAP MessageEvent.  Process actual events from given inbox and send to queue.
+
+&gt;  Change sleep duration to frequency and remove filter for now
+
+&gt;  Refactor imap plugin for expandability to additional triggers and actions. Add in validation to Connection and Trigger input.
+
+&gt;  Move everything up a directory.  Fix issue where you cannot go get private repo locally.
+
+&gt;  Use new API for calling triggers and actions
+
+&gt;  Refactor IMAP plugin to use new plugin-sdk
+
+&gt;  Update example to use new plugin-sdk
+
+&gt;  Remove extraneous comments
+
+&gt;  Remove -f flag from docker tag command
+</pre></div>
+</div>
+</div>
+<div class="section" id="bad">
+<h4>Bad<a class="headerlink" href="#bad" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none"><div class="highlight"><pre><span></span>&gt; add draft of plugin
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="action-triggers-names">
+<h2>Action &amp; Triggers Names<a class="headerlink" href="#action-triggers-names" title="Permalink to this headline">¶</a></h2>
+<p>Names are specified in the <code class="docutils literal"><span class="pre">plugin.spec.yaml</span></code> file. Example of good style is below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">actions</span><span class="p">:</span>
+  <span class="n">match_string</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;Match String&quot;</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Match string from a text file&quot;</span>
+  <span class="n">match_number</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;Match Number&quot;</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Match number from a text file&quot;</span>
+  <span class="n">extract</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;Extract&quot;</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Extract files from archive&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h3>Rules<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">name</span></code> shouldn&#8217;t be any more than one or two words. The description is intended to give the rest of the detail.</li>
+<li>Each word in the <code class="docutils literal"><span class="pre">name</span></code> should have the first letter capitalized E.g. <code class="docutils literal"><span class="pre">Match</span> <span class="pre">String</span></code> since it&#8217;s a title</li>
+<li>First word in the <code class="docutils literal"><span class="pre">description</span></code> should have the first letter capitalized and not be same as <code class="docutils literal"><span class="pre">name</span></code> E.g. <code class="docutils literal"><span class="pre">Match</span> <span class="pre">string</span> <span class="pre">from</span> <span class="pre">text</span> <span class="pre">file</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="property-names">
+<h2>Property Names<a class="headerlink" href="#property-names" title="Permalink to this headline">¶</a></h2>
+<p>Property names are defined here. These include input/output variables, actions, triggers, and connections names.</p>
+<div class="section" id="common">
+<h3>Common<a class="headerlink" href="#common" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">host</span></code> - Neutral: Used when either an IP address or domain name can be the value.</li>
+<li><code class="docutils literal"><span class="pre">address</span></code> - Used for IP address values only (IPv4 or IPv6) e.g. <code class="docutils literal"><span class="pre">8.8.8.8</span></code></li>
+<li><code class="docutils literal"><span class="pre">domain</span></code> - Used for domain name values only e.g. <code class="docutils literal"><span class="pre">www.google.com</span></code></li>
+</ul>
+<div class="section" id="id3">
+<h4>Rules<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Names should be lowercase e.g. <code class="docutils literal"><span class="pre">timeout</span></code></li>
+<li>Names should be succinct and represent their purpose, limit of 2 words e.g. <code class="docutils literal"><span class="pre">country_code</span></code></li>
+<li>Use underscores to separate words if not succinct <code class="docutils literal"><span class="pre">metro_code</span></code></li>
+<li>Characters other than alpha and underscores are not allowed</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="variable-names">
+<h2>Variable Names<a class="headerlink" href="#variable-names" title="Permalink to this headline">¶</a></h2>
+</div>
+<p>Lower case variable names and underscores are permitted. CamelCase is only permitted when API&#8217;s return keys in
+CamelCase and it becomes cleaner to match them, otherwise it shouldn&#8217;t be used.</p>
+<div class="section" id="id4">
+<h2>Quoting<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>In your code, make quoting consistent</p>
+<div class="section" id="id5">
+<h3>Good<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">e_file</span> <span class="p">,</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;file not modified&#39;</span><span class="p">,</span> <span class="s1">&#39;status_code&#39;</span><span class="p">:</span> <span class="s1">&#39;200&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Bad<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="p">{</span><span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">e_file</span> <span class="p">,</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s1">&#39;file not modified&#39;</span><span class="p">,</span> <span class="s2">&quot;status_code&quot;</span><span class="p">:</span> <span class="s1">&#39;200&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>When logging, use the following conventions:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">FunctionName:</span> <span class="pre">Message</span></code>
+* Where FunctionName is the name of the function from which logging is called
+* Capitalize the first letter in each word of the function name
+* Capitalize the first letter in each colon delimited section</li>
+</ul>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">check_cachefile</span><span class="p">(</span><span class="n">cache_file</span><span class="p">):</span>
+  <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;CheckCacheFile: File </span><span class="si">%s</span><span class="s1"> did not exist&#39;</span><span class="p">,</span> <span class="n">cache_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="errors">
+<h2>Errors<a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h2>
+<p>For logging errors returned from a library, use the library name:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">LibaryName:</span> <span class="pre">ExceptionName:</span> <span class="pre">Message</span></code>
+* Where LibaryName is the name of the library from which logging
+* Capitalize the first letter in each word of the library
+* Capitalize the first letter in each colon delimited section</li>
+</ul>
+<div class="section" id="id8">
+<h3>Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">:</span>
+  <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Requests: HTTPError: status code </span><span class="si">%s</span><span class="s1"> for </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">),</span> <span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="triggers">
+<h2>Triggers<a class="headerlink" href="#triggers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="inputs">
+<h3>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h3>
+<p>For usability, all triggers should support a input called frequency that is passed to the sleep mechanism in the sdks language:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">frequency</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">integer</span>
+  <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Poll frequency in seconds&quot;</span>
+  <span class="n">default</span><span class="p">:</span> <span class="mi">300</span>
+  <span class="n">required</span><span class="p">:</span> <span class="n">false</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="todo">
+<h2>Todo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<p>Remove the TODO lines that are automatically generated with the plugin, once all tasks have been completed.</p>
+</div>
+<div class="section" id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h2>
+<p>Each plugin should include JSON test files in the <code class="docutils literal"><span class="pre">tests</span></code> directory.</p>
+<p>They are generated with <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">komand/&lt;plugin&gt;</span> <span class="pre">sample</span> <span class="pre">&lt;action&gt;</span> <span class="pre">|</span> <span class="pre">jq</span> <span class="pre">'.'</span> <span class="pre">&gt;</span> <span class="pre">tests/&lt;testname&gt;</span></code>. They should be pretty
+print formatted with <code class="docutils literal"><span class="pre">jq</span></code>.</p>
+<div class="section" id="id9">
+<h3>Rules<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Success tests for all actions</li>
+<li>Failure tests for all actions</li>
+<li>Tests for all optional inputs and for all actions</li>
+<li>Failure tests should be suffixed with <code class="docutils literal"><span class="pre">_bad</span></code> e.g. <code class="docutils literal"><span class="pre">png_download_bad.json</span></code></li>
+<li>Success tests should not be suffixed e.g. <code class="docutils literal"><span class="pre">png_download.json</span></code></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>Examples<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Sucess: <code class="docutils literal"><span class="pre">&lt;desc&gt;_&lt;action&gt;.json</span></code> e.g. <code class="docutils literal"><span class="pre">domain_lookup.json</span></code>, <code class="docutils literal"><span class="pre">github_lookup.json</span></code></li>
+<li>Failure: <code class="docutils literal"><span class="pre">&lt;desc&gt;_&lt;action&gt;_bad.json</span></code> e.g. <code class="docutils literal"><span class="pre">nxdomain_lookup_bad.json</span></code>, <code class="docutils literal"><span class="pre">private_ip_lookup_bad.json</span></code></li>
+</ul>
+<p>Examples from the <code class="docutils literal"><span class="pre">csv</span></code> plugin:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>tests:
+├── 1r_filter.json
+├── 1r_filter_bad.json
+├── 1r_filter_bad2.json
+├── 1r_filter_bad3.json
+├── 1r_filter_bad4.json
+├── 1r_space_filter.json
+└── csv_filter_bad.json
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Style Guide</a><ul>
+<li><a class="reference internal" href="#conventions">Conventions</a></li>
+<li><a class="reference internal" href="#plugin-names">Plugin Names</a><ul>
+<li><a class="reference internal" href="#rules">Rules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spec">Spec</a><ul>
+<li><a class="reference internal" href="#indentation">Indentation</a></li>
+<li><a class="reference internal" href="#line-breaks">Line Breaks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#quoting">Quoting</a></li>
+<li><a class="reference internal" href="#punctuation">Punctuation</a></li>
+<li><a class="reference internal" href="#branch-names">Branch Names</a></li>
+<li><a class="reference internal" href="#tags">Tags</a></li>
+<li><a class="reference internal" href="#commit-messages">Commit Messages</a><ul>
+<li><a class="reference internal" href="#id1">Rules</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#good">Good</a></li>
+<li><a class="reference internal" href="#bad">Bad</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#action-triggers-names">Action &amp; Triggers Names</a><ul>
+<li><a class="reference internal" href="#id2">Rules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#property-names">Property Names</a><ul>
+<li><a class="reference internal" href="#common">Common</a><ul>
+<li><a class="reference internal" href="#id3">Rules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#variable-names">Variable Names</a></li>
+<li><a class="reference internal" href="#id4">Quoting</a><ul>
+<li><a class="reference internal" href="#id5">Good</a></li>
+<li><a class="reference internal" href="#id6">Bad</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#logging">Logging</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#errors">Errors</a><ul>
+<li><a class="reference internal" href="#id8">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#triggers">Triggers</a><ul>
+<li><a class="reference internal" href="#inputs">Inputs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#todo">Todo</a></li>
+<li><a class="reference internal" href="#tests">Tests</a><ul>
+<li><a class="reference internal" href="#id9">Rules</a></li>
+<li><a class="reference internal" href="#id10">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="spec.html" title="previous chapter">Plugin Spec</a></li>
+      <li>Next: <a href="troubleshooting.html" title="next chapter">Troubleshooting</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/style.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Komand.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/style.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

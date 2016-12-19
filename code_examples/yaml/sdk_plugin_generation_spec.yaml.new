@@ -1,0 +1,11 @@
+host:
+  type: "string"
+  description: "Finger server host"
+  required: true
+options:
+  type: "string"
+  description: "Options to the finger program"
+  required: false
+output:
+found:
+title: Found Status
