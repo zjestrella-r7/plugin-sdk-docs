@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Style Guide" href="style.html" />
+    <link rel="next" title="Regenerating Plugins" href="regenerating.html" />
     <link rel="prev" title="SDK Guide" href="sdk.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -93,9 +93,9 @@
 <span class="l l-Scalar l-Scalar-Plain">triggers</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">emit_greeting</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;Trigger</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">greeting&quot;</span>
-    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Triggers</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">greeting</span><span class="nv"> </span><span class="s">every</span><span class="nv"> </span><span class="s">15</span><span class="nv"> </span><span class="s">seconds</span><span class="nv"> </span><span class="s">(or</span><span class="nv"> </span><span class="s">whatever</span><span class="nv"> </span><span class="s">frequency</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">to).&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Triggers</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">greeting</span><span class="nv"> </span><span class="s">every</span><span class="nv"> </span><span class="s">15</span><span class="nv"> </span><span class="s">seconds</span><span class="nv"> </span><span class="s">(or</span><span class="nv"> </span><span class="s">whatever</span><span class="nv"> </span><span class="s">interval</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">set</span><span class="nv"> </span><span class="s">to).&quot;</span>
     <span class="l l-Scalar l-Scalar-Plain">input</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">frequency</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">interval</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
         <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;How</span><span class="nv"> </span><span class="s">frequently</span><span class="nv"> </span><span class="s">(in</span><span class="nv"> </span><span class="s">seconds)</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">trigger</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">greeting&quot;</span>
         <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
@@ -269,10 +269,10 @@ workflow.</p>
     <span class="l l-Scalar l-Scalar-Plain">output</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;map of identifier -&gt; variable outputs&gt;</span>
 </pre></div>
 </div>
-<p>For usability, all triggers should support a input called frequency that is passed to a sleep mechanism in the SDK</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">frequency</span><span class="p p-Indicator">:</span>
+<p>For usability, all triggers should support a input called interval that is passed to a sleep mechanism in the SDK</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">interval</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
-  <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Poll</span><span class="nv"> </span><span class="s">frequency</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">seconds&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&quot;Poll</span><span class="nv"> </span><span class="s">interval</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">seconds&quot;</span>
   <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">300</span>
   <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
@@ -498,7 +498,7 @@ Version:     0.1.0
 Description: Example plugin.
 
 Triggers <span class="o">(</span>1<span class="o">)</span>:
-└── emit_greeting <span class="o">(</span>Triggers a greeting every <span class="m">15</span> seconds <span class="o">(</span>or whatever frequency is <span class="nb">set</span> to<span class="o">)</span>.<span class="o">)</span>
+└── emit_greeting <span class="o">(</span>Triggers a greeting every <span class="m">15</span> seconds <span class="o">(</span>or whatever interval is <span class="nb">set</span> to<span class="o">)</span>.<span class="o">)</span>
 
 Actions <span class="o">(</span>1<span class="o">)</span>:
 └── say_goodbye <span class="o">(</span>Say goodbye.<span class="o">)</span>
@@ -748,7 +748,7 @@ INFO<span class="o">[</span>0000<span class="o">]</span> Building plugin image a
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="sdk.html" title="previous chapter">SDK Guide</a></li>
-      <li>Next: <a href="style.html" title="next chapter">Style Guide</a></li>
+      <li>Next: <a href="regenerating.html" title="next chapter">Regenerating Plugins</a></li>
   </ul></li>
 </ul>
 </div>

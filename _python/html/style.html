@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
-    <link rel="prev" title="Plugin Spec" href="spec.html" />
+    <link rel="prev" title="Regenerating Plugins" href="regenerating.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -200,7 +200,7 @@
 
 &gt;  Add basic headers (to, from, subject, date) and body to IMAP MessageEvent.  Process actual events from given inbox and send to queue.
 
-&gt;  Change sleep duration to frequency and remove filter for now
+&gt;  Change sleep duration to interval and remove filter for now
 
 &gt;  Refactor imap plugin for expandability to additional triggers and actions. Add in validation to Connection and Trigger input.
 
@@ -330,10 +330,10 @@ CamelCase and it becomes cleaner to match them, otherwise it shouldn&#8217;t be 
 <h2>Triggers<a class="headerlink" href="#triggers" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="inputs">
 <h3>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h3>
-<p>For usability, all triggers should support a input called frequency that is passed to the sleep mechanism in the sdks language:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">frequency</span><span class="p">:</span>
+<p>For usability, all triggers should support a input called interval that is passed to the sleep mechanism in the sdks language:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">interval</span><span class="p">:</span>
   <span class="nb">type</span><span class="p">:</span> <span class="n">integer</span>
-  <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Poll frequency in seconds&quot;</span>
+  <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Poll interval in seconds&quot;</span>
   <span class="n">default</span><span class="p">:</span> <span class="mi">300</span>
   <span class="n">required</span><span class="p">:</span> <span class="n">false</span>
 </pre></div>
@@ -454,7 +454,7 @@ print formatted with <code class="docutils literal"><span class="pre">jq</span><
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="spec.html" title="previous chapter">Plugin Spec</a></li>
+      <li>Previous: <a href="regenerating.html" title="previous chapter">Regenerating Plugins</a></li>
       <li>Next: <a href="troubleshooting.html" title="next chapter">Troubleshooting</a></li>
   </ul></li>
 </ul>

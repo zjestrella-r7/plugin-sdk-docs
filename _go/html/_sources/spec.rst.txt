@@ -66,9 +66,9 @@ First, create a file called `plugin.spec.yaml` and populate it with some data:
   triggers:
     emit_greeting:
       name: "Trigger a new greeting"
-      description: "Triggers a greeting every 15 seconds (or whatever frequency is set to)."
+      description: "Triggers a greeting every 15 seconds (or whatever interval is set to)."
       input:
-        frequency:
+        interval:
           type: integer
           description: "How frequently (in seconds) to trigger a greeting"
           default: 15
@@ -253,13 +253,13 @@ A plugin can define 0 or more triggers.  Simply create a section ``triggers`` an
       input: <optional, map of identifier -> variable inputs>
       output: <map of identifier -> variable outputs>
 
-For usability, all triggers should support a input called frequency that is passed to a sleep mechanism in the SDK
+For usability, all triggers should support a input called interval that is passed to a sleep mechanism in the SDK
 
 .. code-block:: yaml
 
-  frequency:
+  interval:
     type: integer
-    description: "Poll frequency in seconds"
+    description: "Poll interval in seconds"
     default: 300
     required: false
 
@@ -535,7 +535,7 @@ The info command will print what triggers/actions your plugin supports.
   Description: Example plugin.
 
   Triggers (1):
-  └── emit_greeting (Triggers a greeting every 15 seconds (or whatever frequency is set to).)
+  └── emit_greeting (Triggers a greeting every 15 seconds (or whatever interval is set to).)
 
   Actions (1):
   └── say_goodbye (Say goodbye.)
