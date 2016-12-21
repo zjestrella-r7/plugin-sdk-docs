@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>CheckCachfile(path string) &#8212; Komand Plugin SDK 0.0.1 documentation</title>
+    <title>Package cache &#8212; Komand Plugin SDK 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -41,20 +41,69 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="checkcachfile-path-string">
-<h1>CheckCachfile(path string)<a class="headerlink" href="#checkcachfile-path-string" title="Permalink to this headline">¶</a></h1>
+  <p>The godoc for the plugin-sdk-go project is another good source of in-depth documentation for these methods. You can find a link to the godoc for each package below.</p>
+<div class="section" id="package-cache">
+<h1>Package cache<a class="headerlink" href="#package-cache" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://godoc.org/github.com/komand/plugin-sdk-go/plugin/cache">cache GoDoc</a></p>
+<p>The cache package contains all the functionality needed to operate with the plugin concept of a <code class="docutils literal"><span class="pre">cache</span></code>, which currently is the
+local plugin filesystem, under the route <code class="docutils literal"><span class="pre">/var/cache/</span></code>. Therefore, the paths you pass into these methods should all assume
+they are relative to <code class="docutils literal"><span class="pre">/var/cache/</span></code> or <code class="docutils literal"><span class="pre">var/cache/lock</span></code> for the Lock suite of methods.</p>
+<p>They should not begin with a leading slash (although if they do, it will be trimmed).</p>
+<p>You can append sub-paths to the name argument, and they will be respected. If the sub directories do not exist, they will be created.</p>
+<div class="section" id="checkcachfile-name-string-bool-error">
+<h2>CheckCachFile(name string) (bool, error)<a class="headerlink" href="#checkcachfile-name-string-bool-error" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">CheckCacheFile</span></code> checks if a file exists in <code class="docutils literal"><span class="pre">/var/cache</span></code>. If there is an error in checking the filesystem, it will be returned alongside a <code class="docutils literal"><span class="pre">false</span></code></p>
+<p>Therefore, you should always expect to handle this error just in case. A result of <code class="docutils literal"><span class="pre">true</span></code> will never have an error.</p>
 </div>
-<div class="section" id="removecachefile-path-string">
-<h1>RemoveCachefile(path string)<a class="headerlink" href="#removecachefile-path-string" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="opencachefile-name-string-os-file-error">
+<h2>OpenCacheFile(name string) (*os.File, error)<a class="headerlink" href="#opencachefile-name-string-os-file-error" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">OpenCacheFile</span></code> will return a pointer to a file handle for the caller to use as they see fit.</p>
+<p>The caller must remember to call <cite>Close()</cite> on the file before they are done with it.</p>
+<p>If the file does not exist, it will be created.</p>
+<p>If there are any errors, an error will be returned along with a nil pointer for the <code class="docutils literal"><span class="pre">os.File</span></code></p>
 </div>
-<div class="section" id="opencachefile-file-string">
-<h1>OpenCachefile(file string)<a class="headerlink" href="#opencachefile-file-string" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="removecachefile-name-string-error">
+<h2>RemoveCacheFile(name string) error<a class="headerlink" href="#removecachefile-name-string-error" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">RemoveCacheFile</span></code> will delete the file with the name provided, but will not remove any directories.</p>
+<p>If there is an error removing the file, the method will return an error</p>
 </div>
-<div class="section" id="lockcachefile-file-string">
-<h1>LockCachefile(file string)<a class="headerlink" href="#lockcachefile-file-string" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="lockcachefile-name-string-bool-error">
+<h2>LockCacheFile(name string) (bool, error)<a class="headerlink" href="#lockcachefile-name-string-bool-error" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">LockCacheFile</span></code> will create a <code class="docutils literal"><span class="pre">lock</span></code> file if and only if it does not already exist.</p>
+<p>If anything unexpected occurs when attempting to grab the lock, you will receive a return value  of false, err</p>
+<p>If the file already exists, the lock is held by another process, and you will receive a return value of false, nil</p>
+<p>If the file does not exist, and is able to be grabbed, you will receive a return value of true, nil</p>
+<p>A call to this method will block the current thread until it is able to receive the lock successfully. At present, there is no timeout.
+It will wait 1 millisecond in between each attempt to grab the lock, so as not to needlessly burn CPU cycles.</p>
 </div>
-<div class="section" id="unlockcachefile-file-string-delay-time-duration">
-<h1>UnlockCachefile(file string, delay time.Duration)<a class="headerlink" href="#unlockcachefile-file-string-delay-time-duration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="unlockcachefile-name-string-delay-time-duration-bool-error">
+<h2>UnlockCacheFile(name string, delay *time.Duration) (bool, error)<a class="headerlink" href="#unlockcachefile-name-string-delay-time-duration-bool-error" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">UnlockCacheFile</span></code> will remove a <code class="docutils literal"><span class="pre">lock</span></code> file if it exists.</p>
+<p>It will optionally wait the provided delay value, if one was provided. This is a convenience for the caller, who may be using locks to help act as a
+throttling / rate limiting mechanism to prevent too many concurrent calls to a given service.</p>
+<p>If anything unexpected goes wrong, you&#8217;ll receive a return value of false, err</p>
+<p>If nothing unexpected goes wrong, you&#8217;ll receive either true, nil or false, nil depending on how the underyling call to <code class="docutils literal"><span class="pre">os.Remove</span></code> returns</p>
+</div>
+</div>
+<div class="section" id="package-utils">
+<h1>Package utils<a class="headerlink" href="#package-utils" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://godoc.org/github.com/komand/plugin-sdk-go/plugin/utils">utils GoDoc</a></p>
+<p>The utils package has some simple helpers for basic operations that don&#8217;t really belong anywhere else.</p>
+<div class="section" id="openfile-name-string-flags-int-perms-os-fileperms-os-file-error">
+<h2>OpenFile(name string, flags int, perms os.FilePerms) (* os.File, error)<a class="headerlink" href="#openfile-name-string-flags-int-perms-os-fileperms-os-file-error" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">OpenFile</span></code> is a convenience for dealing with the file system at a slightly lower level than what you might find in the <code class="docutils literal"><span class="pre">cache</span></code> package</p>
+<p>It is not scoped to any particular directory, nor does it assume to know anything about the name you pass in, and so you should prefix it with a slash to start at the root of the filesystem if you so intend (recommended)</p>
+<p>The caller is responsible for knowing the correct flags and permissions for the file.</p>
+<p>The caller is responsible for closing the file when they are done with it.</p>
+</div>
+<div class="section" id="doesfileexist-path-string-bool-error">
+<h2>DoesFileExist(path string) (bool, error)<a class="headerlink" href="#doesfileexist-path-string-bool-error" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">DoesFileExist</span></code> will check if a file exists in the local file system.</p>
+<p>It is not scoped to any particular directory, nor does it assume to know anything about the name you pass in, and so you should prefix it with a slash to start at the root of the filesystem if you so intend (recommended)</p>
+<p>If there are any unexpected errors, it will return false, error</p>
+<p>If the file does not exist, it will return false, nil</p>
+<p>Otherwise, it will return true, nil</p>
+</div>
 </div>
 
 
@@ -65,11 +114,19 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">CheckCachfile(path string)</a></li>
-<li><a class="reference internal" href="#removecachefile-path-string">RemoveCachefile(path string)</a></li>
-<li><a class="reference internal" href="#opencachefile-file-string">OpenCachefile(file string)</a></li>
-<li><a class="reference internal" href="#lockcachefile-file-string">LockCachefile(file string)</a></li>
-<li><a class="reference internal" href="#unlockcachefile-file-string-delay-time-duration">UnlockCachefile(file string, delay time.Duration)</a></li>
+<li><a class="reference internal" href="#">Package cache</a><ul>
+<li><a class="reference internal" href="#checkcachfile-name-string-bool-error">CheckCachFile(name string) (bool, error)</a></li>
+<li><a class="reference internal" href="#opencachefile-name-string-os-file-error">OpenCacheFile(name string) (*os.File, error)</a></li>
+<li><a class="reference internal" href="#removecachefile-name-string-error">RemoveCacheFile(name string) error</a></li>
+<li><a class="reference internal" href="#lockcachefile-name-string-bool-error">LockCacheFile(name string) (bool, error)</a></li>
+<li><a class="reference internal" href="#unlockcachefile-name-string-delay-time-duration-bool-error">UnlockCacheFile(name string, delay *time.Duration) (bool, error)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#package-utils">Package utils</a><ul>
+<li><a class="reference internal" href="#openfile-name-string-flags-int-perms-os-fileperms-os-file-error">OpenFile(name string, flags int, perms os.FilePerms) (* os.File, error)</a></li>
+<li><a class="reference internal" href="#doesfileexist-path-string-bool-error">DoesFileExist(path string) (bool, error)</a></li>
+</ul>
+</li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
