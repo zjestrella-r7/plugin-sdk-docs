@@ -1,6 +1,11 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+**Note**: We have better documentation now! Use the following 
+
+* https://komunity.komand.com/docs/go/
+* https://komunity.komand.com/docs/python/
+
 ## Introduction
 
 So you want to build a plugin with Komand?  You've come to the right place!
