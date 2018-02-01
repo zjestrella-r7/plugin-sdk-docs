@@ -1,10 +1,12 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+# THESE ARE OLD
+
 **Note**: We have better documentation now! Use the following 
 
-* https://komunity.komand.com/docs/go/
-* https://komunity.komand.com/docs/python/
+* https://komand.github.io/python/index.html
+* https://komand.github.io/go/index.html
 
 ## Introduction
 
